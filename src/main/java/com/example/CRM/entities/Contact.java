@@ -12,6 +12,10 @@ public class Contact extends Leads {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "accountContactList")
+    private Account account;
+
 
 
 }

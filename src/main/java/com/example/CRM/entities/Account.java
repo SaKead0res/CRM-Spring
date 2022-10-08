@@ -29,9 +29,10 @@ public class Account {
     private String city;
     private String country;
 
-    @OneToMany(mappedBy = "")
+    @OneToMany(mappedBy = "id")
     List<Contact> accountContactList;
 
+    @OneToMany(mappedBy = "id")
     List<Opportunity> accountOpportunityList;
 
 }

@@ -3,10 +3,7 @@ package com.example.CRM.entities;
 import com.example.CRM.enums.Product;
 import com.example.CRM.enums.Status;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Opportunity {
@@ -25,4 +22,8 @@ public class Opportunity {
 
     @Embedded
     private Status status;
+
+    @ManyToOne
+    @JoinColumn(name = "accountOpportunityList")
+    private Account account;
 }
