@@ -83,7 +83,7 @@ public class Navigate {
     @Bean
     public static void navigate(LeadsRepository leadsRepository) throws InterruptedException {
 
-        System.out.print("{  LEADS : " + /*Leads.leadList.size() + */"    } ");
+        System.out.print("{  LEADS : " + leadsRepository.count() + "    } ");
         System.out.print("{ OPPORTUNITIES : " + /*Opportunity.opportunityList.size() + */" } ");
         System.out.println("{  ACCOUNTS : " + /*Account.accountList.size() + */"   } ");
 
@@ -102,7 +102,14 @@ public class Navigate {
 
         switch (command) {
             case NEWLEAD:
-                leadsRepository.save(Leads.addLead());
+
+                System.out.println("Some leads added for dev");
+
+                leadsRepository.save(new Leads("Julia Roberts", "+34 56436546", "julia.r@hotmail.com", "Movistar"));
+                leadsRepository.save(new Leads("George Clooney", "+41 78658554", "clooney.fckr@gmail.es", "Orange"));
+                leadsRepository.save(new Leads("Susan Sarandon", "+38 97781234", "susan.sar@yahoo.net", "PepePhone"));
+
+                Leads.addLead(leadsRepository);
                 break;
             case SHOWLEADS:
                 Leads.showLeads(leadsRepository);
@@ -114,7 +121,7 @@ public class Navigate {
 //                Account.showAccounts();
                 break;
             case LOOKUPLEAD:
-//                Leads.lookupLead();
+                Leads.lookupLead(leadsRepository);
                 break;
             case LOOKUPACCOUNT:
 //                Account.lookupAccount();
