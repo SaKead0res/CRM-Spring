@@ -17,13 +17,14 @@ public class Opportunity {
 
     private int quantity;
 
-    @Embedded
+//    @Embedded
+    @OneToOne
     static Contact decisionMaker;
 
     @Embedded
     private Status status;
 
     @ManyToOne
-    @JoinColumn(name = "accountOpportunityList")
+    @JoinColumn(name = "account")
     private Account account;
 }

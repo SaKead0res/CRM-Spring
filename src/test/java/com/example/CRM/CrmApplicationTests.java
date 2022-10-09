@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class CrmApplicationTests {
 
 	@Test
-	@DisplayName()
+	@DisplayName("")
 	void contextLoads() {
 	}
 

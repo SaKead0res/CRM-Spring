@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 //@Embeddable
 
-@Embeddable
 @Entity
 public class Contact extends Leads {
 
@@ -13,8 +12,12 @@ public class Contact extends Leads {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "accountContactList")
+    @JoinColumn(name = "account")
     private Account account;
+
+    @OneToOne
+    @JoinColumn(name = "Opportunity")
+    private Opportunity opportunity;
 
 
 
