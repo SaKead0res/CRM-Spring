@@ -72,23 +72,25 @@ public class Leads {
         return id;
     }
 
-    public static void addLead(LeadsRepository leadsRepository) throws InterruptedException {
+    public static Leads addLead(Scanner scanner) throws InterruptedException {
 
         Leads lead = new Leads();
 
         System.out.print("- Introduce a Name: ");
-        lead.setName(Navigate.input());
+        lead.setName(scanner.nextLine());
         System.out.print("- Introduce a Phone Number: ");
-        lead.setPhoneNumber(Navigate.input());
+        lead.setPhoneNumber(scanner.nextLine());
         System.out.print("- Introduce an Email: ");
-        lead.setEmailAddress(Navigate.input());
+        lead.setEmailAddress(scanner.nextLine());
         System.out.print("- Introduce a Company Name: ");
-        lead.setCompanyName(Navigate.input());
-        leadsRepository.save(lead);
+        lead.setCompanyName(scanner.nextLine());
+
 
         System.out.println("\nThe new " + (char)27 + "[33m" + "LEAD" + (char)27 + "[0m" + " is created correctly.");
         System.out.println("Lead { Id: " + lead.getId() + " |  Name: " + lead.getName() + " | Phone: " + lead.getPhoneNumber() +
                 " | Email: " + lead.getEmailAddress() + " | Company Name: " + lead.getCompanyName() + " }\n");
+
+        return lead;
     }
 
     public static void showLeads(LeadsRepository leadsRepository){

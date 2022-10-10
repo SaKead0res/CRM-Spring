@@ -45,4 +45,20 @@ public class LeadsTest {
         assertEquals("1", leadsOptional.get().getId());
     }
 
+    @Test
+    @DisplayName("Add Lead Works")
+    void addLeadWorks () {
+
+
+
+//        Optional<Leads> leadsOptional = leadsRepository.findByName("Julia Roberts");
+//
+//        Assertions.assertTrue(leadsOptional.isPresent());
+//
+//        assertEquals("Julia Roberts", leadsOptional.get().getName());
+//        assertEquals("1", leadsOptional.get().getId());
+    }
+
+
+
 }

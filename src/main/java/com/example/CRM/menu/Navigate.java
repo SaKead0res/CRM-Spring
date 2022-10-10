@@ -102,7 +102,7 @@ public class Navigate {
 
         switch (command) {
             case NEWLEAD:
-                Leads.addLead(leadsRepository);
+                leadsRepository.save(Leads.addLead(new Scanner(System.in)));
                 break;
             case SHOWLEADS:
                 Leads.showLeads(leadsRepository);
