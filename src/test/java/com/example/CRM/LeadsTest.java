@@ -20,28 +20,29 @@ public class LeadsTest {
     @Autowired
     LeadsRepository leadsRepository;
 
-    List<Leads> leadsList;
+//    List<Leads> leadsList;
 
-//    @BeforeEach
-//    void setUp() {
-//
-//        leadsList = leadsRepository.saveAll(List.of(
-//                new Leads("Julia Roberts", "+34 56436546", "julia.r@hotmail.com", "Movistar"),
-//                new Leads("George Clooney", "+41 78658554", "clooney.fckr@gmail.es", "Orange"),
-//                new Leads("Susan Sarandon", "+38 97781234", "susan.sar@yahoo.net", "PepePhone")
-//        ));
-//
-//    }
+    @BeforeEach
+    void setUp() {
 
-//    @Test
-//    @DisplayName("Find Lead by Id")
-//    void findLeadByNameWorks () {
-//
-//        Optional<Leads> leadsOptional = leadsRepository.findByName(leadsList.get(0).getName());
-//
-//        Assertions.assertTrue(leadsOptional.isPresent());
-//
-//        assertEquals("Julia Roberts", leadsOptional.get().getName());
-//    }
+        leadsRepository.saveAll(List.of(
+                new Leads("Julia Roberts", "+34 56436546", "julia.r@hotmail.com", "Movistar"),
+                new Leads("George Clooney", "+41 78658554", "clooney.fckr@gmail.es", "Orange"),
+                new Leads("Susan Sarandon", "+38 97781234", "susan.sar@yahoo.net", "PepePhone")
+        ));
+
+    }
+
+    @Test
+    @DisplayName("Find Lead by Id")
+    void findLeadByNameWorks () {
+
+        Optional<Leads> leadsOptional = leadsRepository.findByName("Julia Roberts");
+
+        Assertions.assertTrue(leadsOptional.isPresent());
+
+        assertEquals("Julia Roberts", leadsOptional.get().getName());
+        assertEquals("1", leadsOptional.get().getId());
+    }
 
 }

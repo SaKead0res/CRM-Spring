@@ -103,11 +103,13 @@ public class Navigate {
         switch (command) {
             case NEWLEAD:
 
-                System.out.println("Some leads added for dev");
+                System.out.println("Some leads added for dev purpose");
 
-                leadsRepository.save(new Leads("Julia Roberts", "+34 56436546", "julia.r@hotmail.com", "Movistar"));
-                leadsRepository.save(new Leads("George Clooney", "+41 78658554", "clooney.fckr@gmail.es", "Orange"));
-                leadsRepository.save(new Leads("Susan Sarandon", "+38 97781234", "susan.sar@yahoo.net", "PepePhone"));
+                leadsRepository.saveAll(List.of(
+                        new Leads("Julia Roberts", "+34 56436546", "julia.r@hotmail.com", "Movistar"),
+                        new Leads("George Clooney", "+41 78658554", "clooney.fckr@gmail.es", "Orange"),
+                        new Leads("Susan Sarandon", "+38 97781234", "susan.sar@yahoo.net", "PepePhone")
+                ));
 
                 Leads.addLead(leadsRepository);
                 break;
