@@ -5,6 +5,7 @@ import com.example.CRM.entities.Leads;
 import com.example.CRM.entities.Opportunity;
 import com.example.CRM.enums.Commands;
 import com.example.CRM.repositories.LeadsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 
@@ -14,6 +15,8 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class Navigate {
+
+
 
 //    @Bean
 //    public static CommandLineRunner demo(LeadsRepository leadsRepository) {
@@ -80,8 +83,13 @@ public class Navigate {
 //
 //        };
 //    }
-    @Bean
+//
+//    @Autowired
+//    LeadsRepository leadsRepository;
+//    @Bean
     public static void navigate(LeadsRepository leadsRepository) throws InterruptedException {
+
+
 
         System.out.print("{  LEADS : " + leadsRepository.count() + "    } ");
         System.out.print("{ OPPORTUNITIES : " + /*Opportunity.opportunityList.size() + */" } ");

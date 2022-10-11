@@ -2,17 +2,15 @@ package com.example.CRM;
 
 import com.example.CRM.entities.Leads;
 import com.example.CRM.repositories.LeadsRepository;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
-import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.*;
+
 
 @SpringBootTest
 public class LeadsTest {
@@ -33,31 +31,52 @@ public class LeadsTest {
 
     }
 
-    @Test
-    @DisplayName("Find Lead by Id")
-    void findLeadByNameWorks () {
+    @AfterEach
+    void tearDown() {
 
-        Optional<Leads> leadsOptional = leadsRepository.findByName("Julia Roberts");
-
-        Assertions.assertTrue(leadsOptional.isPresent());
-
-        assertEquals("Julia Roberts", leadsOptional.get().getName());
-        assertEquals("1", leadsOptional.get().getId());
+        leadsRepository.deleteAll();
     }
 
-    @Test
-    @DisplayName("Add Lead Works")
-    void addLeadWorks () {
-
-
-
+//    @Test
+//    @DisplayName("Find Lead by Name")
+//    void findLeadByNameWorks () {
+//
 //        Optional<Leads> leadsOptional = leadsRepository.findByName("Julia Roberts");
 //
-//        Assertions.assertTrue(leadsOptional.isPresent());
-//
+//        Assertions.assertTrue(!leadsOptional.isEmpty());
+
 //        assertEquals("Julia Roberts", leadsOptional.get().getName());
 //        assertEquals("1", leadsOptional.get().getId());
-    }
+//    }
+
+//    @Test
+//    @DisplayName("Add Lead Works")
+//    void addLeadWorks () throws InterruptedException {
+//
+//        //TODO  AQUI VA EL EJEMPLO DE MOCKITO
+//
+//        Scanner scanner = new Scanner(System.in);
+//
+//        when(scanner.nextLine())
+//                .thenReturn("Julia Roberts", "+34 56436546", "julia.r@hotmail.com", "Movistar");
+////
+////        phoneBookService.register(momContactName, momPhoneNumber);
+////
+////        verify(phoneBookRepository)
+////                .insert(momContactName, momPhoneNumber);
+//
+//
+//        Leads.addLead(scanner);
+//
+//        assertTrue(leadsRepository.findById(1L).isPresent());
+//
+////        Optional<Leads> leadsOptional = leadsRepository.findByName("Julia Roberts");
+////
+////        Assertions.assertTrue(leadsOptional.isPresent());
+////
+////        assertEquals("Julia Roberts", leadsOptional.get().getName());
+////        assertEquals("1", leadsOptional.get().getId());
+//    }
 
 
 

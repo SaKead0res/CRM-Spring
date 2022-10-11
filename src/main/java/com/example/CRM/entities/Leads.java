@@ -86,9 +86,9 @@ public class Leads {
         lead.setCompanyName(scanner.nextLine());
 
 
-        System.out.println("\nThe new " + (char)27 + "[33m" + "LEAD" + (char)27 + "[0m" + " is created correctly.");
-        System.out.println("Lead { Id: " + lead.getId() + " |  Name: " + lead.getName() + " | Phone: " + lead.getPhoneNumber() +
-                " | Email: " + lead.getEmailAddress() + " | Company Name: " + lead.getCompanyName() + " }\n");
+//        System.out.println("\nThe new " + (char)27 + "[33m" + "LEAD" + (char)27 + "[0m" + " is created correctly.");
+//        System.out.println("Lead { Id: " + lead.getId() + " |  Name: " + lead.getName() + " | Phone: " + lead.getPhoneNumber() +
+//                " | Email: " + lead.getEmailAddress() + " | Company Name: " + lead.getCompanyName() + " }\n");
 
         return lead;
     }

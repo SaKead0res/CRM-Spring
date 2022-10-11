@@ -11,6 +11,7 @@ public class Contact extends Leads {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @ManyToOne
     @JoinColumn(name = "account")
     private Account account;
@@ -18,7 +19,6 @@ public class Contact extends Leads {
     @OneToOne
     @JoinColumn(name = "Opportunity")
     private Opportunity opportunity;
-
 
 
 }

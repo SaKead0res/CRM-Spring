@@ -22,7 +22,7 @@ public class Account {
     @GeneratedValue()
     private Long id;
 
-    @Embedded
+    @Enumerated
     private Industries industry;
 
     private int employeeCount;
