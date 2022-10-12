@@ -92,6 +92,24 @@ public class Opportunity {
         this.account = account;
     }
 
+    public static Opportunity addOpportunity(Product product, int quantity, Status status) {
+
+
+        Opportunity opportunity = new Opportunity();
+//        if (product.()) throw new IllegalArgumentException("The Lead name can't be an empty field.");
+//        if (phoneNumber.isBlank()) throw new IllegalArgumentException("The Lead phone number can't be an empty field.");
+        opportunity.setProduct(product);
+        opportunity.setQuantity(quantity);
+        opportunity.setStatus(status);
+//        opportunity.
+
+
+//        System.out.println("\nThe new " + (char)27 + "[33m" + "OPPORTUNITY" + (char)27 + "[0m" + " is created correctly.");
+//        System.out.println("Opportunity {" + /*ID: " + leads.getId() + */" | Name: " + leads.getName() + " | Phone: " + leads.getPhoneNumber() +
+//                " | Email: " + leads.getEmailAddress() + " | Company Name: " + leads.getCompanyName() + " }\n");
+
+        return opportunity;
+    }
     public static void showOpportunities(OpportunityRepository OpportunityRepository) {
 
         System.out.println("\nOPPORTUNITY LIST\n===================");

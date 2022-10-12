@@ -35,7 +35,71 @@ public class Account {
     @OneToMany(mappedBy = "id")
     List<Opportunity> accountOpportunityList;
 
+    public Account(Industries industry, int employeeCount, String city, String country,
+                   List<Contact> accountContactList, List<Opportunity> accountOpportunityList) {
+        this.industry = industry;
+        this.employeeCount = employeeCount;
+        this.city = city;
+        this.country = country;
+        this.accountContactList = accountContactList;
+        this.accountOpportunityList = accountOpportunityList;
+    }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Industries getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(Industries industry) {
+        this.industry = industry;
+    }
+
+    public int getEmployeeCount() {
+        return employeeCount;
+    }
+
+    public void setEmployeeCount(int employeeCount) {
+        this.employeeCount = employeeCount;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public List<Contact> getAccountContactList() {
+        return accountContactList;
+    }
+
+    public void setAccountContactList(List<Contact> accountContactList) {
+        this.accountContactList = accountContactList;
+    }
+
+    public List<Opportunity> getAccountOpportunityList() {
+        return accountOpportunityList;
+    }
+
+    public void setAccountOpportunityList(List<Opportunity> accountOpportunityList) {
+        this.accountOpportunityList = accountOpportunityList;
+    }
 
 
 //    public static void showAccounts(AccountRepository accountRepository) {
@@ -44,8 +108,8 @@ public class Account {
 //
 //        for (Account account : AccountRepository.findAll()) {
 //            System.out.println("Account { Id: " + account.getId()
-//                    + " | Name: " + account.getProduct()
-//                    + " | Phone: " + account.getQuantity()
+//                    + " | Name: " + account.getIndustry()
+//                    + " | Phone: " + account.get()
 //                    + " | Email: " + account.getStatus()
 //                    + " | Company Name: " + account.getAccount() + " }");
 //
@@ -53,7 +117,7 @@ public class Account {
 //        }
 //        System.out.println("END OF LIST\n");
 //    }
-//
+
 //    public static void lookupOpportunity(OpportunityRepository opportunityRepository) throws InterruptedException {
 //
 //        Scanner input = new Scanner(System.in);
@@ -78,5 +142,5 @@ public class Account {
 //                " |\n | Status: " + opportunityRepository.findById(id).get().getStatus() +
 //                " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount() + " |\n");
 //    }
-//
+
 }
