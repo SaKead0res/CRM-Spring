@@ -73,13 +73,17 @@ public class CrmApplication implements CommandLineRunner{
 		switch (command) {
 			case NEWLEAD:
 				try {
-					leadsRepository.save(Leads.addLead(input("- Introduce a Name: "), input("- Introduce a Phone Number: "),
+					Leads leads = leadsRepository.save(Leads.addLead(input("- Introduce a Name: "), input("- Introduce a Phone Number: "),
 							input("- Introduce an Email: "), input("- Introduce a Company Name: ")));
+					System.out.println("\nThe new " + (char)27 + "[33m" + "LEAD" + (char)27 + "[0m" + " is created correctly.");
+					System.out.println("Lead {ID: " + leads.getId() + " | Name: " + leads.getName() + " | Phone: " + leads.getPhoneNumber() +
+							" | Email: " + leads.getEmailAddress() + " | Company Name: " + leads.getCompanyName() + " }\n");
 
 				}catch (IllegalArgumentException e) {
 					System.err.println(e.getMessage());
 					navigate();
 				}
+
 
 				break;
 			case SHOWLEADS:

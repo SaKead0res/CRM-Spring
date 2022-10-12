@@ -69,23 +69,19 @@ public class Leads {
 
     public static Leads addLead(String name, String phoneNumber, String email, String companyName) {
 
+
         Leads leads = new Leads();
     if (name.isBlank()) throw new IllegalArgumentException("The Lead name can't be an empty field.");
 //        if (phoneNumber.isBlank()) throw new IllegalArgumentException("The Lead phone number can't be an empty field.");
-//        System.out.print("- Introduce a Name: ");
         leads.setName(name);
-//        System.out.print("- Introduce a Phone Number: ");
-
         leads.setPhoneNumber(phoneNumber);
-//        System.out.print("- Introduce an Email: ");
         leads.setEmailAddress(email);
-//        System.out.print("- Introduce a Company Name: ");
         leads.setCompanyName(companyName);
 
 
 //        System.out.println("\nThe new " + (char)27 + "[33m" + "LEAD" + (char)27 + "[0m" + " is created correctly.");
-//        System.out.println("Lead { Id: " + lead.getId() + " |  Name: " + lead.getName() + " | Phone: " + lead.getPhoneNumber() +
-//                " | Email: " + lead.getEmailAddress() + " | Company Name: " + lead.getCompanyName() + " }\n");
+//        System.out.println("Lead {" + /*ID: " + leads.getId() + */" | Name: " + leads.getName() + " | Phone: " + leads.getPhoneNumber() +
+//                " | Email: " + leads.getEmailAddress() + " | Company Name: " + leads.getCompanyName() + " }\n");
 
         return leads;
     }

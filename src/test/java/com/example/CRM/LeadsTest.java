@@ -54,8 +54,10 @@ public class LeadsTest {
 
         Leads test1 = Leads.addLead("TestName", "TestPhone", "TestEmail", "TestCompany");
 
-//        assertEquals("TestName", test1.getName());
+        assertEquals("TestName", test1.getName());
     }
+
+
 
 //        //TODO  AQUI VA EL EJEMPLO DE MOCKITO
 //
