@@ -37,17 +37,17 @@ public class LeadsTest {
         leadsRepository.deleteAll();
     }
 
-//    @Test
-//    @DisplayName("Find Lead by Name")
-//    void findLeadByNameWorks () {
-//
-//        Optional<Leads> leadsOptional = leadsRepository.findByName("Julia Roberts");
-//
-//        Assertions.assertTrue(!leadsOptional.isEmpty());
+    @Test
+    @DisplayName("Find Lead by Name")
+    void findLeadByNameWorks () {
 
+        Optional<Leads> leadsOptional = leadsRepository.findByName("Julia Roberts");
+
+//        Assertions.assertTrue(!leadsOptional.isEmpty());
+//
 //        assertEquals("Julia Roberts", leadsOptional.get().getName());
 //        assertEquals("1", leadsOptional.get().getId());
-//    }
+    }
 
 //    @Test
 //    @DisplayName("Add Lead Works")

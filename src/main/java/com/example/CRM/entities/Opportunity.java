@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Opportunity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     //    @Embedded
     @Enumerated(EnumType.STRING)

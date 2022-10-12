@@ -72,7 +72,7 @@ public class Leads {
         return id;
     }
 
-    public static Leads addLead(Scanner scanner) throws InterruptedException {
+    public static Leads addLead(Scanner scanner) {
 
         Leads lead = new Leads();
 
