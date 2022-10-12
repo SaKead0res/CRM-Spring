@@ -1,20 +1,16 @@
 package com.example.CRM;
 
-import com.example.CRM.entities.Leads;
+import com.example.CRM.entities.Lead;
 import com.example.CRM.entities.Opportunity;
 import com.example.CRM.enums.Commands;
 import com.example.CRM.enums.Product;
 import com.example.CRM.enums.Status;
-import com.example.CRM.menu.Navigate;
-import com.example.CRM.repositories.LeadsRepository;
+import com.example.CRM.repositories.LeadRepository;
 import com.example.CRM.repositories.OpportunityRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 import java.util.List;
 import java.util.Scanner;
@@ -24,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class CrmApplication implements CommandLineRunner{
 
 	@Autowired
-	LeadsRepository leadsRepository;
+	LeadRepository leadRepository;
 
 	@Autowired
 	OpportunityRepository opportunityRepository;
@@ -36,10 +32,10 @@ public class CrmApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 
-		leadsRepository.saveAll(List.of(
-				new Leads("Julia Roberts", "+34 56436546", "julia.r@hotmail.com", "Movistar"),
-				new Leads("George Clooney", "+41 78658554", "clooney.fckr@gmail.es", "Orange"),
-				new Leads("Susan Sarandon", "+38 97781234", "susan.sar@yahoo.net", "PepePhone")
+		leadRepository.saveAll(List.of(
+				new Lead("Julia Roberts", "+34 56436546", "julia.r@hotmail.com", "Movistar"),
+				new Lead("George Clooney", "+41 78658554", "clooney.fckr@gmail.es", "Orange"),
+				new Lead("Susan Sarandon", "+38 97781234", "susan.sar@yahoo.net", "PepePhone")
 		));
 
 		opportunityRepository.saveAll(List.of(
@@ -49,7 +45,7 @@ public class CrmApplication implements CommandLineRunner{
 		));
 //		Navigate.navigate(leadsRepository);
 
-		navigate();
+//		navigate();
 
 
 
@@ -59,15 +55,13 @@ public class CrmApplication implements CommandLineRunner{
 
 
 
-		System.out.print("{  LEADS : " + leadsRepository.count() + "    } ");
+		System.out.print("{  LEADS : " + leadRepository.count() + "    } ");
 		System.out.print("{ OPPORTUNITIES : " + /*Opportunity.opportunityList.size() + */" } ");
 		System.out.println("{  ACCOUNTS : " + /*Account.accountList.size() + */"   } ");
 
-		System.out.print("Please, enter a command: ");
-
 		Commands command = null;
 		try {
-			command = Commands.valueOf( input() );//esta funcion intenta dar a la variable command el valor de una String(input())
+			command = Commands.valueOf( input("Please, enter a command: ") );//esta funcion intenta dar a la variable command el valor de una String(input())
 //                                                  pero como es de clase Enum solo cogera el valor en caso de que exista en la
 //                                                  clase Enum Commands.
 		} catch ( IllegalArgumentException e ) {
@@ -78,10 +72,18 @@ public class CrmApplication implements CommandLineRunner{
 
 		switch (command) {
 			case NEWLEAD:
-				leadsRepository.save(Leads.addLead(new Scanner(System.in)));
+				try {
+					leadRepository.save(Lead.addLead(input("- Introduce a Name: "), input("- Introduce a Phone Number: "),
+							input("- Introduce an Email: "), input("- Introduce a Company Name: ")));
+
+				}catch (IllegalArgumentException e) {
+					System.err.println(e.getMessage());
+					navigate();
+				}
+
 				break;
 			case SHOWLEADS:
-				Leads.showLeads(leadsRepository);
+				Lead.showLeads(leadRepository);
 				break;
 			case SHOWOPPORTUNITIES:
 //                Opportunity.showOpportunities();
@@ -90,7 +92,7 @@ public class CrmApplication implements CommandLineRunner{
 //                Account.showAccounts();
 				break;
 			case LOOKUPLEAD:
-				Leads.lookupLead(leadsRepository);
+				Lead.lookupLead(leadRepository);
 				break;
 			case LOOKUPACCOUNT:
 //                Account.lookupAccount();
@@ -119,26 +121,10 @@ public class CrmApplication implements CommandLineRunner{
 		navigate();
 	}
 
-	public static String input() {
+	public static String input(String input) {
 		Scanner myScanner = new Scanner(System.in);
-
+		System.out.println(input);
 		String userInput = myScanner.nextLine();
-//
-////        PROBANDO LOOKUPLEADID
-//
-//        List<String> inputArray = new ArrayList<>(List.of(userInput.trim().split(" ")));
-//        String inputFirstPart = inputArray.get(0) + inputArray.get(1);
-//        int id;
-//        System.out.println(inputFirstPart);
-////        if (Integer.parseInt(inputArray.get(inputArray.size() - 1)))
-//        try{
-//            id = Integer.parseInt(inputArray.get(inputArray.size() - 1));
-//        } catch (IllegalArgumentException e){
-//            System.err.println("Wrong ID format. Try again.");
-//            input();
-//        }
-//        String upperCaseInput = userInput.toUpperCase().replace(" ", "");
-//        return inputFirstPart.toUpperCase();
 		return userInput.replace(" ","").toUpperCase();
 	}
 

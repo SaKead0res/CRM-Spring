@@ -1,19 +1,6 @@
 package com.example.CRM.menu;
 
-import com.example.CRM.CrmApplication;
-import com.example.CRM.entities.Account;
-import com.example.CRM.entities.Leads;
-import com.example.CRM.entities.Opportunity;
-import com.example.CRM.enums.Commands;
-import com.example.CRM.repositories.LeadsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class Navigate {
 
