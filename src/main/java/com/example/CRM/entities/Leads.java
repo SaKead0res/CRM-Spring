@@ -1,6 +1,6 @@
 package com.example.CRM.entities;
 
-import com.example.CRM.repositories.LeadRepository;
+import com.example.CRM.repositories.LeadsRepository;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +10,7 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 @Entity
-public class Lead {
+public class Leads {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,14 +21,14 @@ public class Lead {
     private String emailAddress;
     private String companyName;
 
-    public Lead(String name, String phoneNumber, String emailAddress, String companyName) {
+    public Leads(String name, String phoneNumber, String emailAddress, String companyName) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
         this.companyName = companyName;
     }
 
-    public Lead() {
+    public Leads() {
     }
 
     public String getName() {
@@ -67,46 +67,42 @@ public class Lead {
         return id;
     }
 
-    public static Lead addLead(String name, String phoneNumber, String email, String companyName) {
+    public static Leads addLead(String name, String phoneNumber, String email, String companyName) {
 
-        Lead lead = new Lead();
+
+        Leads leads = new Leads();
     if (name.isBlank()) throw new IllegalArgumentException("The Lead name can't be an empty field.");
 //        if (phoneNumber.isBlank()) throw new IllegalArgumentException("The Lead phone number can't be an empty field.");
-//        System.out.print("- Introduce a Name: ");
-        lead.setName(name);
-//        System.out.print("- Introduce a Phone Number: ");
-
-        lead.setPhoneNumber(phoneNumber);
-//        System.out.print("- Introduce an Email: ");
-        lead.setEmailAddress(email);
-//        System.out.print("- Introduce a Company Name: ");
-        lead.setCompanyName(companyName);
+        leads.setName(name);
+        leads.setPhoneNumber(phoneNumber);
+        leads.setEmailAddress(email);
+        leads.setCompanyName(companyName);
 
 
 //        System.out.println("\nThe new " + (char)27 + "[33m" + "LEAD" + (char)27 + "[0m" + " is created correctly.");
-//        System.out.println("Lead { Id: " + lead.getId() + " |  Name: " + lead.getName() + " | Phone: " + lead.getPhoneNumber() +
-//                " | Email: " + lead.getEmailAddress() + " | Company Name: " + lead.getCompanyName() + " }\n");
+//        System.out.println("Lead {" + /*ID: " + leads.getId() + */" | Name: " + leads.getName() + " | Phone: " + leads.getPhoneNumber() +
+//                " | Email: " + leads.getEmailAddress() + " | Company Name: " + leads.getCompanyName() + " }\n");
 
-        return lead;
+        return leads;
     }
 
-    public static void showLeads(LeadRepository leadRepository){
+    public static void showLeads(LeadsRepository leadsRepository){
 
         System.out.println("\nLEAD LIST\n===================");
 
-        for (Lead lead : leadRepository.findAll()){
-            System.out.println("Lead { Id: " + lead.getId()
-                    + " | Name: " + lead.getName()
-                    + " | Phone: " + lead.getPhoneNumber()
-                    + " | Email: " + lead.getEmailAddress()
-                    + " | Company Name: " + lead.getCompanyName() + " }");
+        for (Leads leads : leadsRepository.findAll()){
+            System.out.println("Lead { Id: " + leads.getId()
+                    + " | Name: " + leads.getName()
+                    + " | Phone: " + leads.getPhoneNumber()
+                    + " | Email: " + leads.getEmailAddress()
+                    + " | Company Name: " + leads.getCompanyName() + " }");
 
             System.out.println("====================");
         }
         System.out.println("END OF LIST\n");
     }
 
-    public static void lookupLead(LeadRepository leadRepository) throws InterruptedException {
+    public static void lookupLead(LeadsRepository leadsRepository) throws InterruptedException {
 
         Scanner input = new Scanner(System.in);
 
@@ -120,15 +116,15 @@ public class Lead {
         } catch (IllegalArgumentException e){
             System.err.println("Wrong ID format.");
             TimeUnit.MILLISECONDS.sleep(1000);
-            lookupLead(leadRepository);
+            lookupLead(leadsRepository);
         }
 
         System.out.println("Lead" +
-                "  \n | Id: " + leadRepository.findById(id).get().getId() +
-                " |\n | Name: " + leadRepository.findById(id).get().getName() +
-                " |\n | Phone: " + leadRepository.findById(id).get().getPhoneNumber() +
-                " |\n | Email: " + leadRepository.findById(id).get().getEmailAddress() +
-                " |\n | Company Name: " + leadRepository.findById(id).get().getCompanyName() + " |\n");
+                "  \n | Id: " + leadsRepository.findById(id).get().getId() +
+                " |\n | Name: " + leadsRepository.findById(id).get().getName() +
+                " |\n | Phone: " + leadsRepository.findById(id).get().getPhoneNumber() +
+                " |\n | Email: " + leadsRepository.findById(id).get().getEmailAddress() +
+                " |\n | Company Name: " + leadsRepository.findById(id).get().getCompanyName() + " |\n");
     }
 
 }
