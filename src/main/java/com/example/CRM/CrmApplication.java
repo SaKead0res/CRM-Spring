@@ -90,7 +90,7 @@ public class CrmApplication implements CommandLineRunner{
 				Leads.showLeads(leadsRepository);
 				break;
 			case SHOWOPPORTUNITIES:
-//                Opportunity.showOpportunities();
+                Opportunity.showOpportunities(opportunityRepository); // HECHO
 				break;
 			case SHOWACCOUNTS:
 //                Account.showAccounts();
@@ -102,7 +102,7 @@ public class CrmApplication implements CommandLineRunner{
 //                Account.lookupAccount();
 				break;
 			case LOOKUPOPPORTUNITY:
-//                Opportunity.lookupOpportunity();
+                Opportunity.lookupOpportunity(opportunityRepository);   //HECHO
 				break;
 			case CONVERT:
 //                Leads.convert();
