@@ -1,6 +1,8 @@
 package com.example.CRM.entities;
 
 import com.example.CRM.enums.Industries;
+import com.example.CRM.enums.Product;
+import com.example.CRM.enums.Status;
 import com.example.CRM.repositories.AccountRepository;
 import com.example.CRM.repositories.OpportunityRepository;
 import lombok.AllArgsConstructor;
@@ -43,6 +45,10 @@ public class Account {
         this.country = country;
         this.accountContactList = accountContactList;
         this.accountOpportunityList = accountOpportunityList;
+    }
+
+    public Account() {
+
     }
 
     public Long getId() {
@@ -100,7 +106,19 @@ public class Account {
     public void setAccountOpportunityList(List<Opportunity> accountOpportunityList) {
         this.accountOpportunityList = accountOpportunityList;
     }
+    public static Account addAccount(Industries industry, int employeeCount, String city, String country) {
 
+
+        Account account = new Account();
+//        if (product.()) throw new IllegalArgumentException("The Lead name can't be an empty field.");
+//        if (phoneNumber.isBlank()) throw new IllegalArgumentException("The Lead phone number can't be an empty field.");
+        account.setIndustry(industry);
+        account.setEmployeeCount(employeeCount);
+        account.setCity(city);
+        account.setCountry(country);
+
+        return account;
+    }
 
 //    public static void showAccounts(AccountRepository accountRepository) {
 //

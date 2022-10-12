@@ -1,9 +1,11 @@
 package com.example.CRM;
 
+import com.example.CRM.entities.Account;
 import com.example.CRM.entities.Contact;
 import com.example.CRM.entities.Leads;
 import com.example.CRM.entities.Opportunity;
 import com.example.CRM.enums.Commands;
+import com.example.CRM.enums.Industries;
 import com.example.CRM.enums.Product;
 import com.example.CRM.enums.Status;
 import com.example.CRM.repositories.AccountRepository;
@@ -158,6 +160,30 @@ public class CrmApplication implements CommandLineRunner{
 									" | Interested Quantity: " + opportunity.getQuantity() +
 									" | Status: " + opportunity.getStatus() +
 									" | Related Account: " + opportunity.getAccount() + " }\n"
+					);
+
+
+				}catch (IllegalArgumentException e) {
+					System.err.println(e.getMessage());
+					navigate();
+				}
+
+				try {
+					Account account = accountRepository.save(Account.addAccount(
+							Industries.valueOf(input("- Introduce the Industries: ")),
+							Integer.parseInt(input("- Introduce the Employee Count: ")),
+							input("- Introduce the City: "),
+							input("- Introduce the Country: ")
+					));
+
+					System.out.println("\nThe new " + (char)27 + "[33m" + "ACCOUNT" + (char)27 + "[0m" + " is created correctly.");
+
+					System.out.println(
+							"Contact {ID: " + account.getId() +
+									" | Industries: " + account.getIndustry() +
+									" | Employee Count: " + account.getEmployeeCount() +
+									" | City: " + account.getCity() +
+									" | Country: " + account.getCountry() + " }\n"
 					);
 
 
