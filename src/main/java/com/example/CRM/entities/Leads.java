@@ -2,10 +2,7 @@ package com.example.CRM.entities;
 
 import com.example.CRM.repositories.LeadsRepository;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -21,11 +18,16 @@ public class Leads {
     private String emailAddress;
     private String companyName;
 
-    public Leads(String name, String phoneNumber, String emailAddress, String companyName) {
+    @ManyToOne
+    @JoinColumn(name = "salesRep")
+    private SalesRep salesRep;
+
+    public Leads(String name, String phoneNumber, String emailAddress, String companyName, SalesRep salesRep) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
         this.companyName = companyName;
+        this.salesRep = salesRep;
     }
 
     public Leads() {
@@ -67,7 +69,15 @@ public class Leads {
         return id;
     }
 
-    public static Leads addLead(String name, String phoneNumber, String email, String companyName) {
+    public SalesRep getSalesRep() {
+        return salesRep;
+    }
+
+    public void setSalesRep(SalesRep salesRep) {
+        this.salesRep = salesRep;
+    }
+
+    public static Leads addLead(String name, String phoneNumber, String email, String companyName, Integer salesRepId) {
 
 
         Leads leads = new Leads();
@@ -83,6 +93,9 @@ public class Leads {
 
         if (companyName.isBlank()) throw new IllegalArgumentException("The Lead Company name can't be an empty field.");
         leads.setCompanyName(companyName);
+
+//        if (salesRepId) throw new IllegalArgumentException("The SalesRep id can't be an empty field.");
+//        leads.setSalesRep(salesRepRepository);
 
         return leads;
     }

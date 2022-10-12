@@ -26,6 +26,7 @@ public class Opportunity {
     @JoinColumn(name = "id")
     static Contact decisionMaker;
 
+
     //    @Embedded
     @Enumerated(EnumType.STRING)
     private Status status;
