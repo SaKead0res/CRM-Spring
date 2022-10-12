@@ -120,45 +120,48 @@ public class Account {
         return account;
     }
 
-//    public static void showAccounts(AccountRepository accountRepository) {
-//
-//        System.out.println("\nACCOUNT LIST\n===================");
-//
-//        for (Account account : AccountRepository.findAll()) {
-//            System.out.println("Account { Id: " + account.getId()
-//                    + " | Name: " + account.getIndustry()
-//                    + " | Phone: " + account.get()
-//                    + " | Email: " + account.getStatus()
-//                    + " | Company Name: " + account.getAccount() + " }");
-//
-//            System.out.println("====================");
-//        }
-//        System.out.println("END OF LIST\n");
-//    }
+    public static void showAccounts (AccountRepository accountRepository) {
 
-//    public static void lookupOpportunity(OpportunityRepository opportunityRepository) throws InterruptedException {
-//
-//        Scanner input = new Scanner(System.in);
-//
-//        System.out.print("- Introduce the " + (char)27 + "[33m" + "OPPORTUNITY" + (char)27 + "[0m" + " Id to LOOK: ");
-//
-//        Long id = null;
-//
-//        try {
-//            id = input.nextLong();
-//
-//        } catch (IllegalArgumentException e){
-//            System.err.println("Wrong ID format.");
-//            TimeUnit.MILLISECONDS.sleep(1000);
-//            lookupOpportunity(opportunityRepository);
-//        }
-//
-//        System.out.println("Opportunity" +
-//                "  \n | Id: " + opportunityRepository.findById(id).get().getId() +
-//                " |\n | Interested Product: " + opportunityRepository.findById(id).get().getProduct() +
-//                " |\n | Interested Quantity: " + opportunityRepository.findById(id).get().getQuantity() +
-//                " |\n | Status: " + opportunityRepository.findById(id).get().getStatus() +
-//                " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount() + " |\n");
-//    }
+        System.out.println("\nACCOUNT LIST\n===================");
+
+        for (Account account : accountRepository.findAll()) {
+            System.out.println("Account { Id: " + account.getId()
+                    + " | Industry: " + account.getIndustry()
+                    + " | Nº Employees: " + account.getEmployeeCount()
+                    + " | City: " + account.getCity()
+                    + " | Country: " + account.getCountry() + " }");
+
+            System.out.println("====================");
+        }
+        System.out.println("END OF LIST\n");
+    }
+
+    public static void lookupAccount(AccountRepository accountRepository) throws InterruptedException {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("- Introduce the " + (char)27 + "[33m" + "ACCOUNT" + (char)27 + "[0m" + " Id to LOOK: ");
+
+        Long id = null;
+
+        try {
+            id = input.nextLong();
+
+        } catch (IllegalArgumentException e){
+            System.err.println("Wrong ID format.");
+            TimeUnit.MILLISECONDS.sleep(1000);
+            lookupAccount(accountRepository);
+        }
+
+        System.out.println("Account" +
+                "  \n | Id: " + accountRepository.findById(id).get().getId() +
+                " |\n | Type of Industry: " + accountRepository.findById(id).get().getIndustry() +
+                " |\n | Nº Employees: " + accountRepository.findById(id).get().getEmployeeCount() +
+                " |\n | City: " + accountRepository.findById(id).get().getCity() +
+                " |\n | Country: " + accountRepository.findById(id).get().getCountry() +
+//                " |\n | Contacts of the Account: " + accountRepository.findById(id).get().accountContactList.get(). +
+//                " |\n | Opportunities of the Account: " + accountRepository.findById(id).get().accountOpportunityList.get(). +
+                " |\n");
+    }
 
 }

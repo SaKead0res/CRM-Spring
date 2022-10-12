@@ -55,11 +55,8 @@ public class CrmApplication implements CommandLineRunner{
 				new Opportunity(Product.HYBRID, 1100, Status.CLOSED_LOST, null),
 				new Opportunity(Product.FLATBED, 660, Status.CLOSED_WON, null)
 		));
-//		Navigate.navigate(leadsRepository);
 
 		navigate();
-
-
 
 	}
 
@@ -113,19 +110,19 @@ public class CrmApplication implements CommandLineRunner{
 				Leads.showLeads(leadsRepository);
 				break;
 			case SHOWOPPORTUNITIES:
-				Opportunity.showOpportunities(opportunityRepository); // HECHO
+				Opportunity.showOpportunities(opportunityRepository);
 				break;
 			case SHOWACCOUNTS:
-//                Account.showAccounts();
+                Account.showAccounts(accountRepository);
 				break;
 			case LOOKUPLEAD:
 				Leads.lookupLead(leadsRepository);
 				break;
 			case LOOKUPACCOUNT:
-//                Account.lookupAccount();
+                Account.lookupAccount(accountRepository);
 				break;
 			case LOOKUPOPPORTUNITY:
-				Opportunity.lookupOpportunity(opportunityRepository);   //HECHO
+				Opportunity.lookupOpportunity(opportunityRepository);
 				break;
 			case CONVERT:
 				try {
@@ -201,10 +198,10 @@ public class CrmApplication implements CommandLineRunner{
 
 				break;
 			case CLOSED_WON:
-//                Opportunity.closedWon();
+                Opportunity.closeWonOpportunity(opportunityRepository);
 				break;
 			case CLOSED_LOST:
-//                Opportunity.closedLost();
+                Opportunity.closeLostOpportunity(opportunityRepository);
 				break;
 			case HELP:
 				help();
