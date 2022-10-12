@@ -1,18 +1,8 @@
 package com.example.CRM.entities;
 
 import com.example.CRM.enums.Industries;
-import com.example.CRM.enums.Product;
-import com.example.CRM.enums.Status;
 import com.example.CRM.repositories.AccountRepository;
-import com.example.CRM.repositories.OpportunityRepository;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.cache.annotation.SpringCacheAnnotationParser;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -106,6 +96,7 @@ public class Account {
     public void setAccountOpportunityList(List<Opportunity> accountOpportunityList) {
         this.accountOpportunityList = accountOpportunityList;
     }
+
     public static Account addAccount(Industries industry, int employeeCount, String city, String country, List<Contact> accountContactList, List<Opportunity> accountOpportunityList) {
 
 
@@ -120,7 +111,7 @@ public class Account {
         return account;
     }
 
-    public static void showAccounts (AccountRepository accountRepository) {
+    public static void showAccounts(AccountRepository accountRepository) {
 
         System.out.println("\nACCOUNT LIST\n===================");
 
@@ -140,14 +131,14 @@ public class Account {
 
         Scanner input = new Scanner(System.in);
 
-        System.out.print("- Introduce the " + (char)27 + "[33m" + "ACCOUNT" + (char)27 + "[0m" + " Id to LOOK: ");
+        System.out.print("- Introduce the " + (char) 27 + "[33m" + "ACCOUNT" + (char) 27 + "[0m" + " Id to LOOK: ");
 
         Long id = null;
 
         try {
             id = input.nextLong();
 
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.err.println("Wrong ID format.");
             TimeUnit.MILLISECONDS.sleep(1000);
             lookupAccount(accountRepository);
@@ -159,9 +150,24 @@ public class Account {
                 " |\n | Nº Employees: " + accountRepository.findById(id).get().getEmployeeCount() +
                 " |\n | City: " + accountRepository.findById(id).get().getCity() +
                 " |\n | Country: " + accountRepository.findById(id).get().getCountry() +
-//                " |\n | Contacts of the Account: " + accountRepository.findById(id).get().accountContactList.get(). +
-//                " |\n | Opportunities of the Account: " + accountRepository.findById(id).get().accountOpportunityList.get(). +
                 " |\n");
+//        System.out.println(" |\n | Contacts of the Account: ");
+//        for (Contact contact : accountRepository.findById(id).get().accountContactList) {
+//            System.out.println(
+//                    "Contact {ID: " + contact.getId() +
+//                            " | Name: " + contact.getName() +
+//                            " | Phone: " + contact.getPhoneNumber() +
+//                            " | Email: " + contact.getEmailAddress() +
+//                            " | Company Name: " + contact.getCompanyName() + " }\n");
+//        }
+//        System.out.println(" |\n | Opportunities of the Account: ");
+//        for (Opportunity opportunity : accountRepository.findById(id).get().accountOpportunityList) {
+//            System.out.println(
+//                    "Opportunity {ID: " + opportunity.getId() +
+//                            " | Product: " + opportunity.getProduct() +
+//                            " | Interested Quantity: " + opportunity.getQuantity() +
+//                            " | Status: " + opportunity.getStatus() +
+//                            " }\n");
+//        }
     }
-
 }
