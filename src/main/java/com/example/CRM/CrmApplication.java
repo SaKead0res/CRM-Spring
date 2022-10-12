@@ -1,10 +1,15 @@
 package com.example.CRM;
 
+import com.example.CRM.entities.Account;
+import com.example.CRM.entities.Contact;
 import com.example.CRM.entities.Leads;
 import com.example.CRM.entities.Opportunity;
 import com.example.CRM.enums.Commands;
+import com.example.CRM.enums.Industries;
 import com.example.CRM.enums.Product;
 import com.example.CRM.enums.Status;
+import com.example.CRM.repositories.AccountRepository;
+import com.example.CRM.repositories.ContactRepository;
 import com.example.CRM.repositories.LeadsRepository;
 import com.example.CRM.repositories.OpportunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +17,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -24,6 +30,12 @@ public class CrmApplication implements CommandLineRunner{
 
 	@Autowired
 	OpportunityRepository opportunityRepository;
+
+	@Autowired
+	ContactRepository contactRepository;
+
+	@Autowired
+	AccountRepository accountRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CrmApplication.class, args);
@@ -52,12 +64,15 @@ public class CrmApplication implements CommandLineRunner{
 	}
 
 	public void navigate() throws InterruptedException {
+		Contact contact = new Contact();
+		Opportunity opportunity = new Opportunity();
+		Account account = new Account();
 
 
 
-		System.out.print("{  LEADS : " + leadsRepository.count() + "    } ");
-		System.out.print("{ OPPORTUNITIES : " + /*Opportunity.opportunityList.size() + */" } ");
-		System.out.println("{  ACCOUNTS : " + /*Account.accountList.size() + */"   } ");
+				System.out.print("{  LEADS : " + leadsRepository.count() + "    } ");
+		System.out.print("{ OPPORTUNITIES : " + opportunityRepository.count() + " } ");
+		System.out.println("{  ACCOUNTS : " + accountRepository.count() + "   } ");
 
 		Commands command = null;
 		try {
@@ -73,13 +88,24 @@ public class CrmApplication implements CommandLineRunner{
 		switch (command) {
 			case NEWLEAD:
 				try {
-					Leads leads = leadsRepository.save(Leads.addLead(input("- Introduce a Name: "), input("- Introduce a Phone Number: "),
-							input("- Introduce an Email: "), input("- Introduce a Company Name: ")));
-					System.out.println("\nThe new " + (char)27 + "[33m" + "LEAD" + (char)27 + "[0m" + " is created correctly.");
-					System.out.println("Lead {ID: " + leads.getId() + " | Name: " + leads.getName() + " | Phone: " + leads.getPhoneNumber() +
-							" | Email: " + leads.getEmailAddress() + " | Company Name: " + leads.getCompanyName() + " }\n");
+					Leads leads = leadsRepository.save(Leads.addLead(
+							input("- Introduce a Name: "),
+							input("- Introduce a Phone Number: "),
+							input("- Introduce an Email: "),
+							input("- Introduce a Company Name: ")
+					));
 
-				}catch (IllegalArgumentException e) {
+					System.out.println("\nThe new " + (char) 27 + "[33m" + "LEAD" + (char) 27 + "[0m" + " is created correctly.");
+
+					System.out.println(
+							"Lead {ID: " + leads.getId() +
+									" | Name: " + leads.getName() +
+									" | Phone: " + leads.getPhoneNumber() +
+									" | Email: " + leads.getEmailAddress() +
+									" | Company Name: " + leads.getCompanyName() + " }\n"
+					);
+
+				} catch (IllegalArgumentException e) {
 					System.err.println(e.getMessage());
 					navigate();
 				}
@@ -90,7 +116,7 @@ public class CrmApplication implements CommandLineRunner{
 				Leads.showLeads(leadsRepository);
 				break;
 			case SHOWOPPORTUNITIES:
-//                Opportunity.showOpportunities();
+				Opportunity.showOpportunities(opportunityRepository); // HECHO
 				break;
 			case SHOWACCOUNTS:
 //                Account.showAccounts();
@@ -102,10 +128,84 @@ public class CrmApplication implements CommandLineRunner{
 //                Account.lookupAccount();
 				break;
 			case LOOKUPOPPORTUNITY:
-//                Opportunity.lookupOpportunity();
+				Opportunity.lookupOpportunity(opportunityRepository);   //HECHO
 				break;
 			case CONVERT:
-//                Leads.convert();
+				try {
+					contact = Contact.addContact(Leads.convertLead(leadsRepository));
+
+					System.out.println("\nThe new " + (char)27 + "[33m" + "CONTACT" + (char)27 + "[0m" + " is created correctly.");
+
+					System.out.println(
+							"Contact {ID: " + contact.getId() +
+									" | Name: " + contact.getName() +
+									" | Phone: " + contact.getPhoneNumber() +
+									" | Email: " + contact.getEmailAddress() +
+									" | Company Name: " + contact.getCompanyName() + " }\n"
+					);
+
+
+				}catch (IllegalArgumentException e) {
+					System.err.println(e.getMessage());
+					navigate();
+				}
+				try {
+
+					opportunity = Opportunity.addOpportunity(
+							Product.valueOf(input("- Introduce the Interested Product: ")),
+							Integer.parseInt(input("- Introduce the Interested Quantity: ")),
+							Status.OPEN);
+
+					System.out.println("\nThe new " + (char)27 + "[33m" + "OPPORTUNITY" + (char)27 + "[0m" + " is created correctly.");
+
+					System.out.println(
+							"Opportunity {ID: " + opportunity.getId() +
+									" | Product: " + opportunity.getProduct() +
+									" | Interested Quantity: " + opportunity.getQuantity() +
+									" | Status: " + opportunity.getStatus() +
+									" | Related Account: " + opportunity.getAccount() + " }\n"
+					);
+
+
+				}catch (IllegalArgumentException e) {
+					System.err.println(e.getMessage());
+					navigate();
+				}
+
+				try {
+
+					account = accountRepository.save(Account.addAccount(
+							Industries.valueOf(input("- Introduce the Industries: ")),
+							Integer.parseInt(input("- Introduce the Employee Count: ")),
+							input("- Introduce the City: "),
+							input("- Introduce the Country: ")
+					));
+
+
+					System.out.println("\nThe new " + (char)27 + "[33m" + "ACCOUNT" + (char)27 + "[0m" + " is created correctly.");
+
+					System.out.println(
+							"Contact {ID: " + account.getId() +
+									" | Industries: " + account.getIndustry() +
+									" | Employee Count: " + account.getEmployeeCount() +
+									" | City: " + account.getCity() +
+									" | Country: " + account.getCountry() + " }\n"
+					);
+
+
+				}catch (IllegalArgumentException e) {
+					System.err.println(e.getMessage());
+					navigate();
+				}
+
+				contact.setAccount(account);
+				opportunity.setAccount(account);
+				opportunityRepository.save(opportunity);
+
+				contact.setOpportunity(opportunity);
+
+				contactRepository.save(contact);
+
 				break;
 			case CLOSED_WON:
 //                Opportunity.closedWon();

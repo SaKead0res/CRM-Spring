@@ -127,4 +127,30 @@ public class Leads {
                 " |\n | Company Name: " + leadsRepository.findById(id).get().getCompanyName() + " |\n");
     }
 
+    public static Leads convertLead(LeadsRepository leadsRepository) throws InterruptedException {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("- Introduce the " + (char) 27 + "[33m" + "LEAD" + (char) 27 + "[0m" + " Id to CONVERT: ");
+
+        Long id = null;
+
+        try {
+            id = input.nextLong();
+
+        } catch (IllegalArgumentException e) {
+            System.err.println("Wrong ID format.");
+            TimeUnit.MILLISECONDS.sleep(1000);
+            convertLead(leadsRepository);
+        }
+
+        Leads lead = leadsRepository.findById(id).get();
+
+        leadsRepository.deleteById(id);
+
+        return lead;
+    }
+
+
+
 }

@@ -2,8 +2,12 @@ package com.example.CRM.entities;
 
 import com.example.CRM.enums.Product;
 import com.example.CRM.enums.Status;
+import com.example.CRM.repositories.LeadsRepository;
+import com.example.CRM.repositories.OpportunityRepository;
 
 import javax.persistence.*;
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 @Entity
 public class Opportunity {
@@ -17,12 +21,12 @@ public class Opportunity {
 
     private int quantity;
 
-//    @Embedded
+    //    @Embedded
     @OneToOne
     @JoinColumn(name = "id")
     static Contact decisionMaker;
 
-//    @Embedded
+    //    @Embedded
     @Enumerated(EnumType.STRING)
     private Status status;
 
@@ -87,4 +91,64 @@ public class Opportunity {
     public void setAccount(Account account) {
         this.account = account;
     }
+
+    public static Opportunity addOpportunity(Product product, int quantity, Status status) {
+
+
+        Opportunity opportunity = new Opportunity();
+//        if (product.()) throw new IllegalArgumentException("The Lead name can't be an empty field.");
+//        if (phoneNumber.isBlank()) throw new IllegalArgumentException("The Lead phone number can't be an empty field.");
+        opportunity.setProduct(product);
+        opportunity.setQuantity(quantity);
+        opportunity.setStatus(status);
+//        opportunity.
+
+
+//        System.out.println("\nThe new " + (char)27 + "[33m" + "OPPORTUNITY" + (char)27 + "[0m" + " is created correctly.");
+//        System.out.println("Opportunity {" + /*ID: " + leads.getId() + */" | Name: " + leads.getName() + " | Phone: " + leads.getPhoneNumber() +
+//                " | Email: " + leads.getEmailAddress() + " | Company Name: " + leads.getCompanyName() + " }\n");
+
+        return opportunity;
+    }
+    public static void showOpportunities(OpportunityRepository OpportunityRepository) {
+
+        System.out.println("\nOPPORTUNITY LIST\n===================");
+
+        for (Opportunity opportunity : OpportunityRepository.findAll()) {
+            System.out.println("Lead { Id: " + opportunity.getId()
+                    + " | Name: " + opportunity.getProduct()
+                    + " | Phone: " + opportunity.getQuantity()
+                    + " | Email: " + opportunity.getStatus()
+                    + " | Company Name: " + opportunity.getAccount() + " }");
+
+            System.out.println("====================");
+        }
+        System.out.println("END OF LIST\n");
+    }
+
+    public static void lookupOpportunity(OpportunityRepository opportunityRepository) throws InterruptedException {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("- Introduce the " + (char)27 + "[33m" + "OPPORTUNITY" + (char)27 + "[0m" + " Id to LOOK: ");
+
+        Long id = null;
+
+        try {
+            id = input.nextLong();
+
+        } catch (IllegalArgumentException e){
+            System.err.println("Wrong ID format.");
+            TimeUnit.MILLISECONDS.sleep(1000);
+            lookupOpportunity(opportunityRepository);
+        }
+
+        System.out.println("Opportunity" +
+                "  \n | Id: " + opportunityRepository.findById(id).get().getId() +
+                " |\n | Interested Product: " + opportunityRepository.findById(id).get().getProduct() +
+                " |\n | Interested Quantity: " + opportunityRepository.findById(id).get().getQuantity() +
+                " |\n | Status: " + opportunityRepository.findById(id).get().getStatus() +
+                " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount() + " |\n");
+    }
+
 }

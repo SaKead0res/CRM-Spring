@@ -92,4 +92,17 @@ public class Contact {
     public void setOpportunity(Opportunity opportunity) {
         this.opportunity = opportunity;
     }
+
+    public static Contact addContact(Leads lead) {
+
+        Contact contact = new Contact();
+
+        contact.setName(lead.getName());
+        contact.setPhoneNumber(lead.getPhoneNumber());
+        contact.setEmailAddress(lead.getEmailAddress());
+        contact.setCompanyName(lead.getCompanyName());
+
+
+        return contact;
+    }
 }
