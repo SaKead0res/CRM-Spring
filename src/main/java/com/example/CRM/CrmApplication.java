@@ -57,7 +57,7 @@ public class CrmApplication implements CommandLineRunner{
 		));
 //		Navigate.navigate(leadsRepository);
 
-		navigate();
+//		navigate();
 
 
 
