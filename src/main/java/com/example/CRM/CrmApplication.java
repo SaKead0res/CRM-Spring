@@ -70,7 +70,7 @@ public class CrmApplication implements CommandLineRunner{
 
 
 
-				System.out.print("{  LEADS : " + leadsRepository.count() + "    } ");
+		System.out.print("{  LEADS : " + leadsRepository.count() + "    } ");
 		System.out.print("{ OPPORTUNITIES : " + opportunityRepository.count() + " } ");
 		System.out.println("{  ACCOUNTS : " + accountRepository.count() + "   } ");
 

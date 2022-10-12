@@ -71,17 +71,18 @@ public class Leads {
 
 
         Leads leads = new Leads();
-    if (name.isBlank()) throw new IllegalArgumentException("The Lead name can't be an empty field.");
-//        if (phoneNumber.isBlank()) throw new IllegalArgumentException("The Lead phone number can't be an empty field.");
+
+        if (name.isBlank()) throw new IllegalArgumentException("The Lead name can't be an empty field.");
         leads.setName(name);
+
+        if (phoneNumber.isBlank()) throw new IllegalArgumentException("The Lead phone number can't be an empty field.");
         leads.setPhoneNumber(phoneNumber);
+
+        if (email.isBlank()) throw new IllegalArgumentException("The Lead email address can't be an empty field.");
         leads.setEmailAddress(email);
+
+        if (companyName.isBlank()) throw new IllegalArgumentException("The Lead Company name can't be an empty field.");
         leads.setCompanyName(companyName);
-
-
-//        System.out.println("\nThe new " + (char)27 + "[33m" + "LEAD" + (char)27 + "[0m" + " is created correctly.");
-//        System.out.println("Lead {" + /*ID: " + leads.getId() + */" | Name: " + leads.getName() + " | Phone: " + leads.getPhoneNumber() +
-//                " | Email: " + leads.getEmailAddress() + " | Company Name: " + leads.getCompanyName() + " }\n");
 
         return leads;
     }
