@@ -64,10 +64,13 @@ public class CrmApplication implements CommandLineRunner{
 	}
 
 	public void navigate() throws InterruptedException {
+		Contact contact = new Contact();
+		Opportunity opportunity = new Opportunity();
+		Account account = new Account();
 
 
 
-		System.out.print("{  LEADS : " + leadsRepository.count() + "    } ");
+				System.out.print("{  LEADS : " + leadsRepository.count() + "    } ");
 		System.out.print("{ OPPORTUNITIES : " + opportunityRepository.count() + " } ");
 		System.out.println("{  ACCOUNTS : " + accountRepository.count() + "   } ");
 
@@ -129,7 +132,7 @@ public class CrmApplication implements CommandLineRunner{
 				break;
 			case CONVERT:
 				try {
-					Contact contact = contactRepository.save(Contact.addContact(Leads.convertLead(leadsRepository)));
+					contact = Contact.addContact(Leads.convertLead(leadsRepository));
 
 					System.out.println("\nThe new " + (char)27 + "[33m" + "CONTACT" + (char)27 + "[0m" + " is created correctly.");
 
@@ -147,11 +150,11 @@ public class CrmApplication implements CommandLineRunner{
 					navigate();
 				}
 				try {
-					Opportunity opportunity = opportunityRepository.save(Opportunity.addOpportunity(
+
+					opportunity = Opportunity.addOpportunity(
 							Product.valueOf(input("- Introduce the Interested Product: ")),
 							Integer.parseInt(input("- Introduce the Interested Quantity: ")),
-							Status.OPEN)
-					);
+							Status.OPEN);
 
 					System.out.println("\nThe new " + (char)27 + "[33m" + "OPPORTUNITY" + (char)27 + "[0m" + " is created correctly.");
 
@@ -170,18 +173,14 @@ public class CrmApplication implements CommandLineRunner{
 				}
 
 				try {
-					List<Contact> accountContactList = new ArrayList<>();
-					List<Opportunity> accountOpportunityList = new ArrayList<>();
 
-
-					Account account = accountRepository.save(Account.addAccount(
+					account = accountRepository.save(Account.addAccount(
 							Industries.valueOf(input("- Introduce the Industries: ")),
 							Integer.parseInt(input("- Introduce the Employee Count: ")),
 							input("- Introduce the City: "),
-							input("- Introduce the Country: "),
-							accountContactList,
-							accountOpportunityList
+							input("- Introduce the Country: ")
 					));
+
 
 					System.out.println("\nThe new " + (char)27 + "[33m" + "ACCOUNT" + (char)27 + "[0m" + " is created correctly.");
 
@@ -198,6 +197,14 @@ public class CrmApplication implements CommandLineRunner{
 					System.err.println(e.getMessage());
 					navigate();
 				}
+
+				contact.setAccount(account);
+				opportunity.setAccount(account);
+				opportunityRepository.save(opportunity);
+
+				contact.setOpportunity(opportunity);
+
+				contactRepository.save(contact);
 
 				break;
 			case CLOSED_WON:

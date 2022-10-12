@@ -24,7 +24,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Industries industry;
 
     private int employeeCount;
@@ -37,8 +37,7 @@ public class Account {
     @OneToMany(mappedBy = "id")
     List<Opportunity> accountOpportunityList;
 
-    public Account(Industries industry, int employeeCount, String city, String country,
-                   List<Contact> accountContactList, List<Opportunity> accountOpportunityList) {
+    public Account(Industries industry, int employeeCount, String city, String country, List<Contact> accountContactList, List<Opportunity> accountOpportunityList) {
         this.industry = industry;
         this.employeeCount = employeeCount;
         this.city = city;
@@ -106,7 +105,7 @@ public class Account {
     public void setAccountOpportunityList(List<Opportunity> accountOpportunityList) {
         this.accountOpportunityList = accountOpportunityList;
     }
-    public static Account addAccount(Industries industry, int employeeCount, String city, String country, List<Contact> accountContactList, List<Opportunity> accountOpportunityList) {
+    public static Account addAccount(Industries industry, int employeeCount, String city, String country) {
 
 
         Account account = new Account();
