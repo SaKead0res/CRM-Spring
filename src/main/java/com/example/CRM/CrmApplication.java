@@ -17,6 +17,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -155,7 +156,7 @@ public class CrmApplication implements CommandLineRunner{
 					System.out.println("\nThe new " + (char)27 + "[33m" + "OPPORTUNITY" + (char)27 + "[0m" + " is created correctly.");
 
 					System.out.println(
-							"Contact {ID: " + opportunity.getId() +
+							"Opportunity {ID: " + opportunity.getId() +
 									" | Product: " + opportunity.getProduct() +
 									" | Interested Quantity: " + opportunity.getQuantity() +
 									" | Status: " + opportunity.getStatus() +
@@ -169,11 +170,17 @@ public class CrmApplication implements CommandLineRunner{
 				}
 
 				try {
+					List<Contact> accountContactList = new ArrayList<>();
+					List<Opportunity> accountOpportunityList = new ArrayList<>();
+
+
 					Account account = accountRepository.save(Account.addAccount(
 							Industries.valueOf(input("- Introduce the Industries: ")),
 							Integer.parseInt(input("- Introduce the Employee Count: ")),
 							input("- Introduce the City: "),
-							input("- Introduce the Country: ")
+							input("- Introduce the Country: "),
+							accountContactList,
+							accountOpportunityList
 					));
 
 					System.out.println("\nThe new " + (char)27 + "[33m" + "ACCOUNT" + (char)27 + "[0m" + " is created correctly.");

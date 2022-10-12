@@ -106,7 +106,7 @@ public class Account {
     public void setAccountOpportunityList(List<Opportunity> accountOpportunityList) {
         this.accountOpportunityList = accountOpportunityList;
     }
-    public static Account addAccount(Industries industry, int employeeCount, String city, String country) {
+    public static Account addAccount(Industries industry, int employeeCount, String city, String country, List<Contact> accountContactList, List<Opportunity> accountOpportunityList) {
 
 
         Account account = new Account();
