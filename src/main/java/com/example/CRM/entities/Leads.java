@@ -77,7 +77,7 @@ public class Leads {
         this.salesRep = salesRep;
     }
 
-    public static Leads addLead(String name, String phoneNumber, String email, String companyName, Integer salesRepId) {
+    public static Leads addLead(String name, String phoneNumber, String email, String companyName) {
 
 
         Leads leads = new Leads();
@@ -95,7 +95,7 @@ public class Leads {
         leads.setCompanyName(companyName);
 
 //        if (salesRepId) throw new IllegalArgumentException("The SalesRep id can't be an empty field.");
-//        leads.setSalesRep(salesRepRepository);
+//        leads.setSalesRep(salesRep);
 
         return leads;
     }

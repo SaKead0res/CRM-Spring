@@ -41,11 +41,11 @@ public class CrmApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 
-//		leadsRepository.saveAll(List.of(
-//				new Leads("Julia Roberts", "+34 56436546", "julia.r@hotmail.com", "Movistar"),
-//				new Leads("George Clooney", "+41 78658554", "clooney.fckr@gmail.es", "Orange"),
-//				new Leads("Susan Sarandon", "+38 97781234", "susan.sar@yahoo.net", "PepePhone")
-//		));
+		leadsRepository.saveAll(List.of(
+				new Leads("Julia Roberts", "+34 56436546", "julia.r@hotmail.com", "Movistar", null),
+				new Leads("George Clooney", "+41 78658554", "clooney.fckr@gmail.es", "Orange",null),
+				new Leads("Susan Sarandon", "+38 97781234", "susan.sar@yahoo.net", "PepePhone",null)
+		));
 
 		opportunityRepository.saveAll(List.of(
 				new Opportunity(Product.BOX, 200, Status.OPEN, null),
@@ -61,6 +61,8 @@ public class CrmApplication implements CommandLineRunner{
 	}
 
 	public void navigate() throws InterruptedException {
+
+		Leads leads = new Leads();
 		Contact contact = new Contact();
 		Opportunity opportunity = new Opportunity();
 		Account account = new Account();
@@ -87,29 +89,31 @@ public class CrmApplication implements CommandLineRunner{
 		switch (command) {
 			case NEWLEAD:
 				try {
-					Leads leads = leadsRepository.save(Leads.addLead(
+					leads = Leads.addLead(
 							input("- Introduce a Name: "),
 							input("- Introduce a Phone Number: "),
 							input("- Introduce an Email: "),
-							input("- Introduce a Company Name: "),
-							Integer.parseInt(input("- Introduce a SalesRep id: "))
-					));
-
-					System.out.println("\nThe new " + (char) 27 + "[33m" + "LEAD" + (char) 27 + "[0m" + " is created correctly.");
-
-					System.out.println(
-							"Lead {ID: " + leads.getId() +
-									" | Name: " + leads.getName() +
-									" | Phone: " + leads.getPhoneNumber() +
-									" | Email: " + leads.getEmailAddress() +
-									" | Company Name: " + leads.getCompanyName() + " }\n"
+							input("- Introduce a Company Name: ")
 					);
+
+					leads.setSalesRep(salesRepRepository.findById(Long.parseLong(input("- Introduce The SalesRep id: "))).get());
 
 				} catch (IllegalArgumentException e) {
 					System.err.println(e.getMessage());
 					navigate();
 				}
 
+				System.out.println("\nThe new " + (char) 27 + "[33m" + "LEAD" + (char) 27 + "[0m" + " is created correctly.");
+
+				System.out.println(
+						"Lead {ID: " + leads.getId() +
+								" | Name: " + leads.getName() +
+								" | Phone: " + leads.getPhoneNumber() +
+								" | Email: " + leads.getEmailAddress() +
+								" | Company Name: " + leads.getCompanyName() + " }\n"
+				);
+
+				leadsRepository.save(leads);
 
 				break;
 			case SHOWLEADS:
@@ -202,7 +206,6 @@ public class CrmApplication implements CommandLineRunner{
 				opportunity.setAccount(account);
 				opportunityRepository.save(opportunity);
 
-				salesRep.set
 
 				contact.setOpportunity(opportunity);
 
@@ -216,7 +219,7 @@ public class CrmApplication implements CommandLineRunner{
 //                Opportunity.closedLost();
 				break;
 			case NEWSALESREP:
-				SalesRep salesRep = SalesRep.addSalesRep(input("- Introduce the SalesRep name: "));
+				salesRep = SalesRep.addSalesRep(input("- Introduce the SalesRep name: "));
 				salesRepRepository.save(salesRep);
 				break;
 			case HELP:
