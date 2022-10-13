@@ -50,10 +50,17 @@ public class CrmApplication implements CommandLineRunner{
 				new Leads("Susan Sarandon", "+38 97781234", "susan.sar@yahoo.net", "PepePhone")
 		));
 
+		accountRepository.saveAll(List.of(
+				new Account(Industries.PRODUCE, 200, "Miami", "USA"),
+				new Account(Industries.OTHER, 120, "Barcelona", "ESP"),
+				new Account(Industries.MANUFACTURING, 540, "Quito", "ECU")
+
+		));
+
 		opportunityRepository.saveAll(List.of(
-				new Opportunity(Product.BOX, 200, Status.OPEN, null),
-				new Opportunity(Product.HYBRID, 1100, Status.CLOSED_LOST, null),
-				new Opportunity(Product.FLATBED, 660, Status.CLOSED_WON, null)
+				new Opportunity(Product.BOX, 200, Status.OPEN, accountRepository.findById(1l).get()),
+				new Opportunity(Product.HYBRID, 1100, Status.CLOSED_LOST, accountRepository.findById(2l).get()),
+				new Opportunity(Product.FLATBED, 660, Status.CLOSED_WON, accountRepository.findById(3l).get())
 		));
 
 		navigate();

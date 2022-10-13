@@ -27,14 +27,11 @@ public class Account {
     @OneToMany(mappedBy = "id")
     List<Opportunity> accountOpportunityList;
 
-    public Account(Industries industry, int employeeCount, String city, String country,
-                   List<Contact> accountContactList, List<Opportunity> accountOpportunityList) {
+    public Account(Industries industry, int employeeCount, String city, String country) {
         this.industry = industry;
         this.employeeCount = employeeCount;
         this.city = city;
         this.country = country;
-        this.accountContactList = accountContactList;
-        this.accountOpportunityList = accountOpportunityList;
     }
 
     public Account() {

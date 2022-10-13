@@ -115,11 +115,11 @@ public class Opportunity {
         System.out.println("\nOPPORTUNITY LIST\n===================");
 
         for (Opportunity opportunity : OpportunityRepository.findAll()) {
-            System.out.println("Lead { Id: " + opportunity.getId()
-                    + " | Name: " + opportunity.getProduct()
-                    + " | Phone: " + opportunity.getQuantity()
-                    + " | Email: " + opportunity.getStatus()
-                    + " | Company Name: " + opportunity.getAccount() + " }");
+            System.out.println("Opportunity { Id: " + opportunity.getId()
+                    + " | Interested Product: " + opportunity.getProduct()
+                    + " | Interested Quantity: " + opportunity.getQuantity()
+                    + " | Status: " + opportunity.getStatus()
+                    + " | Related Account: " + opportunity.getAccount().getId() + " }");
 
             System.out.println("====================");
         }
@@ -148,7 +148,7 @@ public class Opportunity {
                 " |\n | Interested Product: " + opportunityRepository.findById(id).get().getProduct() +
                 " |\n | Interested Quantity: " + opportunityRepository.findById(id).get().getQuantity() +
                 " |\n | Status: " + opportunityRepository.findById(id).get().getStatus() +
-                " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount() + " |\n");
+                " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount().getId() + " |\n");
     }
 
     public static void closeWonOpportunity(OpportunityRepository opportunityRepository) throws InterruptedException {
@@ -168,13 +168,15 @@ public class Opportunity {
             closeWonOpportunity(opportunityRepository);
         }
 
-        opportunityRepository.findById(id).get().setStatus(Status.CLOSED_WON);
+        Opportunity opportunity = opportunityRepository.findById(id).get();
+        opportunity.setStatus(Status.CLOSED_WON);
+        opportunityRepository.save(opportunity);
         System.out.println("Opportunity" +
                 "  \n | Id: " + opportunityRepository.findById(id).get().getId() +
                 " |\n | Interested Product: " + opportunityRepository.findById(id).get().getProduct() +
                 " |\n | Interested Quantity: " + opportunityRepository.findById(id).get().getQuantity() +
                 " |\n | Status: " + opportunityRepository.findById(id).get().getStatus() +
-                " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount() + " |\n");
+                " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount().getId() + " |\n");
     }
 
     public static void closeLostOpportunity(OpportunityRepository opportunityRepository) throws InterruptedException {
@@ -194,13 +196,15 @@ public class Opportunity {
             closeLostOpportunity(opportunityRepository);
         }
 
-        opportunityRepository.findById(id).get().setStatus(Status.CLOSED_LOST);
+        Opportunity opportunity = opportunityRepository.findById(id).get();
+        opportunity.setStatus(Status.CLOSED_LOST);
+        opportunityRepository.save(opportunity);
         System.out.println("Opportunity" +
                 "  \n | Id: " + opportunityRepository.findById(id).get().getId() +
                 " |\n | Interested Product: " + opportunityRepository.findById(id).get().getProduct() +
                 " |\n | Interested Quantity: " + opportunityRepository.findById(id).get().getQuantity() +
                 " |\n | Status: " + opportunityRepository.findById(id).get().getStatus() +
-                " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount() + " |\n");
+                " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount().getId() + " |\n");
     }
 
 }
