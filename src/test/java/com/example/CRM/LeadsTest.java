@@ -58,8 +58,27 @@ public class LeadsTest {
 //
 //    }
 
+    @Test
+    @DisplayName("Add Lead Works Throw Exceptions.")
+    void addLeadThrowsExceptionsWhenIsBlank() {
 
+        assertThrows(IllegalArgumentException.class, () -> {
+            Leads.addLead("", "test", "test", "test");
+        });
 
+        assertThrows(IllegalArgumentException.class, () -> {
+            Leads.addLead("test", "", "test", "test");
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Leads.addLead("test", "test", "", "test");
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Leads.addLead("test", "test", "test", "");
+        });
+
+    }
 //        //TODO  AQUI VA EL EJEMPLO DE MOCKITO
 //
 //        Scanner scanner = new Scanner(System.in);

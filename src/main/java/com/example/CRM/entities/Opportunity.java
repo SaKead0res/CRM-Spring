@@ -95,10 +95,19 @@ public class Opportunity {
 
     public static Opportunity addOpportunity(Product product, int quantity, Status status) {
 
-
         Opportunity opportunity = new Opportunity();
-//        if (product.()) throw new IllegalArgumentException("The Lead name can't be an empty field.");
-//        if (phoneNumber.isBlank()) throw new IllegalArgumentException("The Lead phone number can't be an empty field.");
+
+        if (product.toString().isEmpty()) throw new IllegalArgumentException("The Opportunity product can't be an empty field.");
+        opportunity.setProduct(product);
+
+        if (quantity > 0) throw new IllegalArgumentException("The Opportunity quantity can't be less than 0.");
+        opportunity.setQuantity(quantity);
+
+        if (status.toString().isEmpty()) throw new IllegalArgumentException("The Opportunity status can't be an empty field.");
+        opportunity.setStatus(status);
+
+//
+
         opportunity.setProduct(product);
         opportunity.setQuantity(quantity);
         opportunity.setStatus(status);
@@ -114,6 +123,8 @@ public class Opportunity {
     public static void showOpportunities(OpportunityRepository OpportunityRepository) {
 
         System.out.println("\nOPPORTUNITY LIST\n===================");
+
+
 
         for (Opportunity opportunity : OpportunityRepository.findAll()) {
             System.out.println("Opportunity { Id: " + opportunity.getId()
