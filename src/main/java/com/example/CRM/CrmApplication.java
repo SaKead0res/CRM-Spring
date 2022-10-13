@@ -1,17 +1,11 @@
 package com.example.CRM;
 
-import com.example.CRM.entities.Account;
-import com.example.CRM.entities.Contact;
-import com.example.CRM.entities.Leads;
-import com.example.CRM.entities.Opportunity;
+import com.example.CRM.entities.*;
 import com.example.CRM.enums.Commands;
 import com.example.CRM.enums.Industries;
 import com.example.CRM.enums.Product;
 import com.example.CRM.enums.Status;
-import com.example.CRM.repositories.AccountRepository;
-import com.example.CRM.repositories.ContactRepository;
-import com.example.CRM.repositories.LeadsRepository;
-import com.example.CRM.repositories.OpportunityRepository;
+import com.example.CRM.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -37,6 +31,9 @@ public class CrmApplication implements CommandLineRunner{
 	@Autowired
 	AccountRepository accountRepository;
 
+	@Autowired
+	SalesRepRepository salesRepRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(CrmApplication.class, args);
 	}
@@ -45,9 +42,9 @@ public class CrmApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 
 		leadsRepository.saveAll(List.of(
-				new Leads("Julia Roberts", "+34 56436546", "julia.r@hotmail.com", "Movistar"),
-				new Leads("George Clooney", "+41 78658554", "clooney.fckr@gmail.es", "Orange"),
-				new Leads("Susan Sarandon", "+38 97781234", "susan.sar@yahoo.net", "PepePhone")
+				new Leads("Julia Roberts", "+34 56436546", "julia.r@hotmail.com", "Movistar", null),
+				new Leads("George Clooney", "+41 78658554", "clooney.fckr@gmail.es", "Orange",null),
+				new Leads("Susan Sarandon", "+38 97781234", "susan.sar@yahoo.net", "PepePhone",null)
 		));
 
 		accountRepository.saveAll(List.of(
@@ -68,15 +65,19 @@ public class CrmApplication implements CommandLineRunner{
 	}
 
 	public void navigate() throws InterruptedException {
+
+		Leads leads = new Leads();
 		Contact contact = new Contact();
 		Opportunity opportunity = new Opportunity();
 		Account account = new Account();
+		SalesRep salesRep = new SalesRep();
 
 
 
 		System.out.print("{  LEADS : " + leadsRepository.count() + "    } ");
 		System.out.print("{ OPPORTUNITIES : " + opportunityRepository.count() + " } ");
 		System.out.println("{  ACCOUNTS : " + accountRepository.count() + "   } ");
+		System.out.println("{  SALESREP : " + salesRepRepository.count() + "   } ");
 
 		Commands command = null;
 		try {
@@ -92,28 +93,31 @@ public class CrmApplication implements CommandLineRunner{
 		switch (command) {
 			case NEWLEAD:
 				try {
-					Leads leads = leadsRepository.save(Leads.addLead(
+					leads = Leads.addLead(
 							input("- Introduce a Name: "),
 							input("- Introduce a Phone Number: "),
 							input("- Introduce an Email: "),
 							input("- Introduce a Company Name: ")
-					));
-
-					System.out.println("\nThe new " + (char) 27 + "[33m" + "LEAD" + (char) 27 + "[0m" + " is created correctly.");
-
-					System.out.println(
-							"Lead {ID: " + leads.getId() +
-									" | Name: " + leads.getName() +
-									" | Phone: " + leads.getPhoneNumber() +
-									" | Email: " + leads.getEmailAddress() +
-									" | Company Name: " + leads.getCompanyName() + " }\n"
 					);
+
+					leads.setSalesRep(salesRepRepository.findById(Long.parseLong(input("- Introduce The SalesRep id: "))).get());
 
 				} catch (IllegalArgumentException e) {
 					System.err.println(e.getMessage());
 					navigate();
 				}
 
+				System.out.println("\nThe new " + (char) 27 + "[33m" + "LEAD" + (char) 27 + "[0m" + " is created correctly.");
+
+				System.out.println(
+						"Lead {ID: " + leads.getId() +
+								" | Name: " + leads.getName() +
+								" | Phone: " + leads.getPhoneNumber() +
+								" | Email: " + leads.getEmailAddress() +
+								" | Company Name: " + leads.getCompanyName() + " }\n"
+				);
+
+				leadsRepository.save(leads);
 
 				break;
 			case SHOWLEADS:
@@ -206,6 +210,7 @@ public class CrmApplication implements CommandLineRunner{
 				opportunity.setAccount(account);
 				opportunityRepository.save(opportunity);
 
+
 				contact.setOpportunity(opportunity);
 
 				contactRepository.save(contact);
@@ -216,6 +221,10 @@ public class CrmApplication implements CommandLineRunner{
 				break;
 			case CLOSED_LOST:
                 Opportunity.closeLostOpportunity(opportunityRepository);
+				break;
+			case NEWSALESREP:
+				salesRep = SalesRep.addSalesRep(input("- Introduce the SalesRep name: "));
+				salesRepRepository.save(salesRep);
 				break;
 			case HELP:
 				help();

@@ -28,10 +28,14 @@ public class Account {
     List<Opportunity> accountOpportunityList;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Account(Industries industry, int employeeCount, String city, String country, List<Contact> accountContactList, List<Opportunity> accountOpportunityList) {
 =======
     public Account(Industries industry, int employeeCount, String city, String country) {
 >>>>>>> b128a8bef0454e50af261d6239d05d9e8af6ec06
+=======
+    public Account(Industries industry, int employeeCount, String city, String country) {
+>>>>>>> 2c387583c276b6053fdef0ce80faa1eec18cfb53
         this.industry = industry;
         this.employeeCount = employeeCount;
         this.city = city;
@@ -98,12 +102,14 @@ public class Account {
         this.accountOpportunityList = accountOpportunityList;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static Account addAccount(Industries industry, int employeeCount, String city, String country) {
 =======
 
     public static Account addAccount(Industries industry, int employeeCount, String city, String country, List<Contact> accountContactList, List<Opportunity> accountOpportunityList) {
+=======
 
->>>>>>> b128a8bef0454e50af261d6239d05d9e8af6ec06
+
 
         Account account = new Account();
 
