@@ -55,6 +55,9 @@ public class LeadsTest {
         Leads test1 = Leads.addLead("TestName", "TestPhone", "TestEmail", "TestCompany");
 
         assertEquals("TestName", test1.getName());
+        assertEquals("TestPhone", test1.getPhoneNumber());
+        assertEquals("TestEmail", test1.getEmailAddress());
+        assertEquals("TestCompany", test1.getCompanyName());
 
     }
 

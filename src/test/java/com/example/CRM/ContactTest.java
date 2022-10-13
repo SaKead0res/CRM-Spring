@@ -25,6 +25,9 @@ public class ContactTest {
                 new Leads("TestName", "TestPhone", "TestEmail", "TestCompany", null));
 
         assertEquals("TestName", contact.getName());
+        assertEquals("TestPhone", contact.getPhoneNumber());
+        assertEquals("TestEmail", contact.getEmailAddress());
+        assertEquals("TestCompany", contact.getCompanyName());
 
     }
 

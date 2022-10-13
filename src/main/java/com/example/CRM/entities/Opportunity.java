@@ -97,13 +97,13 @@ public class Opportunity {
 
         Opportunity opportunity = new Opportunity();
 
-        if (product.toString().isEmpty()) throw new IllegalArgumentException("The Opportunity product can't be an empty field.");
+        if (product == null || product.toString().isBlank()) throw new IllegalArgumentException("The Opportunity product can't be an empty field.");
         opportunity.setProduct(product);
 
         if (quantity < 0) throw new IllegalArgumentException("The Opportunity quantity can't be less than 0.");
         opportunity.setQuantity(quantity);
 
-        if (status.toString().isEmpty()) throw new IllegalArgumentException("The Opportunity status can't be an empty field.");
+        if (status == null || status.toString().isEmpty()) throw new IllegalArgumentException("The Opportunity status can't be an empty field.");
         opportunity.setStatus(status);
 
 //
