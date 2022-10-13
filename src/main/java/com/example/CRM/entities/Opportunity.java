@@ -116,11 +116,11 @@ public class Opportunity {
         System.out.println("\nOPPORTUNITY LIST\n===================");
 
         for (Opportunity opportunity : OpportunityRepository.findAll()) {
-            System.out.println("Lead { Id: " + opportunity.getId()
-                    + " | Name: " + opportunity.getProduct()
-                    + " | Phone: " + opportunity.getQuantity()
-                    + " | Email: " + opportunity.getStatus()
-                    + " | Company Name: " + opportunity.getAccount() + " }");
+            System.out.println("Opportunity { Id: " + opportunity.getId()
+                    + " | Interested Product: " + opportunity.getProduct()
+                    + " | Interested Quantity: " + opportunity.getQuantity()
+                    + " | Status: " + opportunity.getStatus()
+                    + " | Related Account: " + opportunity.getAccount().getId() + " }");
 
             System.out.println("====================");
         }
@@ -149,7 +149,63 @@ public class Opportunity {
                 " |\n | Interested Product: " + opportunityRepository.findById(id).get().getProduct() +
                 " |\n | Interested Quantity: " + opportunityRepository.findById(id).get().getQuantity() +
                 " |\n | Status: " + opportunityRepository.findById(id).get().getStatus() +
-                " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount() + " |\n");
+                " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount().getId() + " |\n");
+    }
+
+    public static void closeWonOpportunity(OpportunityRepository opportunityRepository) throws InterruptedException {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("- Introduce the " + (char)27 + "[33m" + "OPPORTUNITY" + (char)27 + "[0m" + " Id to CLOSE WON: ");
+
+        Long id = null;
+
+        try {
+            id = input.nextLong();
+
+        } catch (IllegalArgumentException e){
+            System.err.println("Wrong ID format.");
+            TimeUnit.MILLISECONDS.sleep(1000);
+            closeWonOpportunity(opportunityRepository);
+        }
+
+        Opportunity opportunity = opportunityRepository.findById(id).get();
+        opportunity.setStatus(Status.CLOSED_WON);
+        opportunityRepository.save(opportunity);
+        System.out.println("Opportunity" +
+                "  \n | Id: " + opportunityRepository.findById(id).get().getId() +
+                " |\n | Interested Product: " + opportunityRepository.findById(id).get().getProduct() +
+                " |\n | Interested Quantity: " + opportunityRepository.findById(id).get().getQuantity() +
+                " |\n | Status: " + opportunityRepository.findById(id).get().getStatus() +
+                " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount().getId() + " |\n");
+    }
+
+    public static void closeLostOpportunity(OpportunityRepository opportunityRepository) throws InterruptedException {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("- Introduce the " + (char)27 + "[33m" + "OPPORTUNITY" + (char)27 + "[0m" + " Id to CLOSE LOST: ");
+
+        Long id = null;
+
+        try {
+            id = input.nextLong();
+
+        } catch (IllegalArgumentException e){
+            System.err.println("Wrong ID format.");
+            TimeUnit.MILLISECONDS.sleep(1000);
+            closeLostOpportunity(opportunityRepository);
+        }
+
+        Opportunity opportunity = opportunityRepository.findById(id).get();
+        opportunity.setStatus(Status.CLOSED_LOST);
+        opportunityRepository.save(opportunity);
+        System.out.println("Opportunity" +
+                "  \n | Id: " + opportunityRepository.findById(id).get().getId() +
+                " |\n | Interested Product: " + opportunityRepository.findById(id).get().getProduct() +
+                " |\n | Interested Quantity: " + opportunityRepository.findById(id).get().getQuantity() +
+                " |\n | Status: " + opportunityRepository.findById(id).get().getStatus() +
+                " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount().getId() + " |\n");
     }
 
 }

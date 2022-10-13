@@ -1,18 +1,8 @@
 package com.example.CRM.entities;
 
 import com.example.CRM.enums.Industries;
-import com.example.CRM.enums.Product;
-import com.example.CRM.enums.Status;
 import com.example.CRM.repositories.AccountRepository;
-import com.example.CRM.repositories.OpportunityRepository;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.cache.annotation.SpringCacheAnnotationParser;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -37,13 +27,11 @@ public class Account {
     @OneToMany(mappedBy = "id")
     List<Opportunity> accountOpportunityList;
 
-    public Account(Industries industry, int employeeCount, String city, String country, List<Contact> accountContactList, List<Opportunity> accountOpportunityList) {
+    public Account(Industries industry, int employeeCount, String city, String country) {
         this.industry = industry;
         this.employeeCount = employeeCount;
         this.city = city;
         this.country = country;
-        this.accountContactList = accountContactList;
-        this.accountOpportunityList = accountOpportunityList;
     }
 
     public Account() {
@@ -105,6 +93,7 @@ public class Account {
     public void setAccountOpportunityList(List<Opportunity> accountOpportunityList) {
         this.accountOpportunityList = accountOpportunityList;
     }
+
     public static Account addAccount(Industries industry, int employeeCount, String city, String country) {
 
 
@@ -119,45 +108,63 @@ public class Account {
         return account;
     }
 
-//    public static void showAccounts(AccountRepository accountRepository) {
-//
-//        System.out.println("\nACCOUNT LIST\n===================");
-//
-//        for (Account account : AccountRepository.findAll()) {
-//            System.out.println("Account { Id: " + account.getId()
-//                    + " | Name: " + account.getIndustry()
-//                    + " | Phone: " + account.get()
-//                    + " | Email: " + account.getStatus()
-//                    + " | Company Name: " + account.getAccount() + " }");
-//
-//            System.out.println("====================");
-//        }
-//        System.out.println("END OF LIST\n");
-//    }
+    public static void showAccounts(AccountRepository accountRepository) {
 
-//    public static void lookupOpportunity(OpportunityRepository opportunityRepository) throws InterruptedException {
-//
-//        Scanner input = new Scanner(System.in);
-//
-//        System.out.print("- Introduce the " + (char)27 + "[33m" + "OPPORTUNITY" + (char)27 + "[0m" + " Id to LOOK: ");
-//
-//        Long id = null;
-//
-//        try {
-//            id = input.nextLong();
-//
-//        } catch (IllegalArgumentException e){
-//            System.err.println("Wrong ID format.");
-//            TimeUnit.MILLISECONDS.sleep(1000);
-//            lookupOpportunity(opportunityRepository);
-//        }
-//
-//        System.out.println("Opportunity" +
-//                "  \n | Id: " + opportunityRepository.findById(id).get().getId() +
-//                " |\n | Interested Product: " + opportunityRepository.findById(id).get().getProduct() +
-//                " |\n | Interested Quantity: " + opportunityRepository.findById(id).get().getQuantity() +
-//                " |\n | Status: " + opportunityRepository.findById(id).get().getStatus() +
-//                " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount() + " |\n");
-//    }
+        System.out.println("\nACCOUNT LIST\n===================");
 
+        for (Account account : accountRepository.findAll()) {
+            System.out.println("Account { Id: " + account.getId()
+                    + " | Industry: " + account.getIndustry()
+                    + " | Nº Employees: " + account.getEmployeeCount()
+                    + " | City: " + account.getCity()
+                    + " | Country: " + account.getCountry() + " }");
+
+            System.out.println("====================");
+        }
+        System.out.println("END OF LIST\n");
+    }
+
+    public static void lookupAccount(AccountRepository accountRepository) throws InterruptedException {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("- Introduce the " + (char) 27 + "[33m" + "ACCOUNT" + (char) 27 + "[0m" + " Id to LOOK: ");
+
+        Long id = null;
+
+        try {
+            id = input.nextLong();
+
+        } catch (IllegalArgumentException e) {
+            System.err.println("Wrong ID format.");
+            TimeUnit.MILLISECONDS.sleep(1000);
+            lookupAccount(accountRepository);
+        }
+
+        System.out.println("Account" +
+                "  \n | Id: " + accountRepository.findById(id).get().getId() +
+                " |\n | Type of Industry: " + accountRepository.findById(id).get().getIndustry() +
+                " |\n | Nº Employees: " + accountRepository.findById(id).get().getEmployeeCount() +
+                " |\n | City: " + accountRepository.findById(id).get().getCity() +
+                " |\n | Country: " + accountRepository.findById(id).get().getCountry() +
+                " |\n");
+//        System.out.println(" |\n | Contacts of the Account: ");
+//        for (Contact contact : accountRepository.findById(id).get().accountContactList) {
+//            System.out.println(
+//                    "Contact {ID: " + contact.getId() +
+//                            " | Name: " + contact.getName() +
+//                            " | Phone: " + contact.getPhoneNumber() +
+//                            " | Email: " + contact.getEmailAddress() +
+//                            " | Company Name: " + contact.getCompanyName() + " }\n");
+//        }
+//        System.out.println(" |\n | Opportunities of the Account: ");
+//        for (Opportunity opportunity : accountRepository.findById(id).get().accountOpportunityList) {
+//            System.out.println(
+//                    "Opportunity {ID: " + opportunity.getId() +
+//                            " | Product: " + opportunity.getProduct() +
+//                            " | Interested Quantity: " + opportunity.getQuantity() +
+//                            " | Status: " + opportunity.getStatus() +
+//                            " }\n");
+//        }
+    }
 }
