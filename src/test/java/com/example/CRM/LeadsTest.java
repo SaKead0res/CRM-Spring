@@ -48,19 +48,19 @@ public class LeadsTest {
 //        assertEquals("1", leadsOptional.get().getId());
     }
 
-//    @Test
-//    @DisplayName("Add Lead Works")
-//    void addLeadWorks (){
-//
-//        Leads test1 = Leads.addLead("TestName", "TestPhone", "TestEmail", "TestCompany");
-//
-//        assertEquals("TestName", test1.getName());
-//
-//    }
+    @Test
+    @DisplayName("Add Lead Works")
+    void addLeadWorks (){
+
+        Leads test1 = Leads.addLead("TestName", "TestPhone", "TestEmail", "TestCompany");
+
+        assertEquals("TestName", test1.getName());
+
+    }
 
     @Test
-    @DisplayName("Add Lead Works Throw Exceptions.")
-    void addLeadThrowsExceptionsWhenIsBlank() {
+    @DisplayName("Add Lead throws IllegalArgumentException when some att is empty.")
+    void addLeadThrowsExceptionsWhenIsEmpty() {
 
         assertThrows(IllegalArgumentException.class, () -> {
             Leads.addLead("", "test", "test", "test");

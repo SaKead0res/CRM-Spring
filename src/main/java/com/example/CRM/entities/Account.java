@@ -101,7 +101,7 @@ public class Account {
         if (industry.toString().isEmpty()) throw new IllegalArgumentException("The Account industry can't be an empty field.");
         account.setIndustry(industry);
 
-        if (employeeCount > 0) throw new IllegalArgumentException("The Account employeeCount can't be less than 0.");
+        if (employeeCount < 0) throw new IllegalArgumentException("The Account employeeCount can't be less than 0.");
         account.setEmployeeCount(employeeCount);
 
         if (city.isBlank()) throw new IllegalArgumentException("The Account city can't be an empty field.");

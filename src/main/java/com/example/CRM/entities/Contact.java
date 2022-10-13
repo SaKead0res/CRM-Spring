@@ -97,16 +97,16 @@ public class Contact {
 
         Contact contact = new Contact();
 
-        if (lead.toString().isEmpty()) throw new IllegalArgumentException("The Contact name can't be an empty field.");
+        if (lead.getName().isEmpty()) throw new IllegalArgumentException("The Contact name can't be an empty field.");
        contact.setName(lead.getName());
 
-        if (lead.toString().isEmpty()) throw new IllegalArgumentException("The Contact phone number can't be an empty field.");
+        if (lead.getPhoneNumber().isEmpty()) throw new IllegalArgumentException("The Contact phone number can't be an empty field.");
         contact.setPhoneNumber(lead.getPhoneNumber());
 
-        if (lead.toString().isEmpty()) throw new IllegalArgumentException("The Contact email adress can't be an empty field.");
+        if (lead.getEmailAddress().isEmpty()) throw new IllegalArgumentException("The Contact email adress can't be an empty field.");
         contact.setEmailAddress(lead.getEmailAddress());
 
-        if (lead.toString().isEmpty()) throw new IllegalArgumentException("The Contact company name can't be an empty field.");
+        if (lead.getCompanyName().isEmpty()) throw new IllegalArgumentException("The Contact company name can't be an empty field.");
         contact.setCompanyName(lead.getCompanyName());
 
 
