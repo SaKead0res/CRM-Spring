@@ -60,7 +60,7 @@ public class CrmApplication implements CommandLineRunner{
 				new Opportunity(Product.FLATBED, 660, Status.CLOSED_WON, accountRepository.findById(3l).get())
 		));
 
-//		navigate();
+		navigate();
 
 	}
 
