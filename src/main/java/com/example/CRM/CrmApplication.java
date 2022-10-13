@@ -50,16 +50,20 @@ public class CrmApplication implements CommandLineRunner{
 				new Leads("Susan Sarandon", "+38 97781234", "susan.sar@yahoo.net", "PepePhone")
 		));
 
-		opportunityRepository.saveAll(List.of(
-				new Opportunity(Product.BOX, 200, Status.OPEN, null),
-				new Opportunity(Product.HYBRID, 1100, Status.CLOSED_LOST, null),
-				new Opportunity(Product.FLATBED, 660, Status.CLOSED_WON, null)
+		accountRepository.saveAll(List.of(
+				new Account(Industries.PRODUCE, 200, "Miami", "USA"),
+				new Account(Industries.OTHER, 120, "Barcelona", "ESP"),
+				new Account(Industries.MANUFACTURING, 540, "Quito", "ECU")
+
 		));
-//		Navigate.navigate(leadsRepository);
+
+		opportunityRepository.saveAll(List.of(
+				new Opportunity(Product.BOX, 200, Status.OPEN, accountRepository.findById(1l).get()),
+				new Opportunity(Product.HYBRID, 1100, Status.CLOSED_LOST, accountRepository.findById(2l).get()),
+				new Opportunity(Product.FLATBED, 660, Status.CLOSED_WON, accountRepository.findById(3l).get())
+		));
 
 //		navigate();
-
-
 
 	}
 
@@ -116,19 +120,19 @@ public class CrmApplication implements CommandLineRunner{
 				Leads.showLeads(leadsRepository);
 				break;
 			case SHOWOPPORTUNITIES:
-				Opportunity.showOpportunities(opportunityRepository); // HECHO
+				Opportunity.showOpportunities(opportunityRepository);
 				break;
 			case SHOWACCOUNTS:
-//                Account.showAccounts();
+                Account.showAccounts(accountRepository);
 				break;
 			case LOOKUPLEAD:
 				Leads.lookupLead(leadsRepository);
 				break;
 			case LOOKUPACCOUNT:
-//                Account.lookupAccount();
+                Account.lookupAccount(accountRepository);
 				break;
 			case LOOKUPOPPORTUNITY:
-				Opportunity.lookupOpportunity(opportunityRepository);   //HECHO
+				Opportunity.lookupOpportunity(opportunityRepository);
 				break;
 			case CONVERT:
 				try {
@@ -208,10 +212,10 @@ public class CrmApplication implements CommandLineRunner{
 
 				break;
 			case CLOSED_WON:
-//                Opportunity.closedWon();
+                Opportunity.closeWonOpportunity(opportunityRepository);
 				break;
 			case CLOSED_LOST:
-//                Opportunity.closedLost();
+                Opportunity.closeLostOpportunity(opportunityRepository);
 				break;
 			case HELP:
 				help();
