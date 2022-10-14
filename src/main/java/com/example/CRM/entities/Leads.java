@@ -94,9 +94,6 @@ public class Leads {
         if (companyName.isBlank()) throw new IllegalArgumentException("The Lead Company name can't be an empty field.");
         leads.setCompanyName(companyName);
 
-//        if (salesRepId) throw new IllegalArgumentException("The SalesRep id can't be an empty field.");
-//        leads.setSalesRep(salesRep);
-
         return leads;
     }
 
@@ -164,7 +161,4 @@ public class Leads {
 
         return lead;
     }
-
-
-
 }

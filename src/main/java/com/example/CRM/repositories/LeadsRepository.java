@@ -12,7 +12,4 @@ public interface LeadsRepository extends JpaRepository<Leads, Long> {
 
     List<Leads> findByName (String name);
 
-//    Leads addLead(String name, String phoneNumber, String email, String companyName);
-
-//    Optional<Leads> getById(Long id);
 }

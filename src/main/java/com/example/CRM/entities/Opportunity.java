@@ -106,17 +106,12 @@ public class Opportunity {
         if (status == null || status.toString().isEmpty()) throw new IllegalArgumentException("The Opportunity status can't be an empty field.");
         opportunity.setStatus(status);
 
-//
+
 
         opportunity.setProduct(product);
         opportunity.setQuantity(quantity);
         opportunity.setStatus(status);
-//        opportunity.
 
-
-//        System.out.println("\nThe new " + (char)27 + "[33m" + "OPPORTUNITY" + (char)27 + "[0m" + " is created correctly.");
-//        System.out.println("Opportunity {" + /*ID: " + leads.getId() + */" | Name: " + leads.getName() + " | Phone: " + leads.getPhoneNumber() +
-//                " | Email: " + leads.getEmailAddress() + " | Company Name: " + leads.getCompanyName() + " }\n");
 
         return opportunity;
     }
@@ -130,7 +125,6 @@ public class Opportunity {
             System.out.println("Opportunity { Id: " + opportunity.getId()
                     + " | Interested Product: " + opportunity.getProduct()
                     + " | Interested Quantity: " + opportunity.getQuantity()
-                    + " | Decision Maker: " + opportunity.getDecisionMaker().getName()
                     + " | Status: " + opportunity.getStatus()
                     + " | Related Account: " + opportunity.getAccount().getId() + " }");
 
@@ -160,7 +154,6 @@ public class Opportunity {
                 "  \n | Id: " + opportunityRepository.findById(id).get().getId() +
                 " |\n | Interested Product: " + opportunityRepository.findById(id).get().getProduct() +
                 " |\n | Interested Quantity: " + opportunityRepository.findById(id).get().getQuantity() +
-                " |\n | Decision Maker: " + opportunityRepository.findById(id).get().getDecisionMaker().getName() +
                 " |\n | Status: " + opportunityRepository.findById(id).get().getStatus() +
                 " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount().getId() + " |\n");
     }
@@ -189,7 +182,6 @@ public class Opportunity {
                 "  \n | Id: " + opportunityRepository.findById(id).get().getId() +
                 " |\n | Interested Product: " + opportunityRepository.findById(id).get().getProduct() +
                 " |\n | Interested Quantity: " + opportunityRepository.findById(id).get().getQuantity() +
-                " |\n | Decision Maker: " + opportunityRepository.findById(id).get().getDecisionMaker().getName() +
                 " |\n | Status: " + opportunityRepository.findById(id).get().getStatus() +
                 " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount().getId() + " |\n");
     }
@@ -218,7 +210,6 @@ public class Opportunity {
                 "  \n | Id: " + opportunityRepository.findById(id).get().getId() +
                 " |\n | Interested Product: " + opportunityRepository.findById(id).get().getProduct() +
                 " |\n | Interested Quantity: " + opportunityRepository.findById(id).get().getQuantity() +
-                " |\n | Decision Maker: " + opportunityRepository.findById(id).get().getDecisionMaker().getName() +
                 " |\n | Status: " + opportunityRepository.findById(id).get().getStatus() +
                 " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount().getId() + " |\n");
     }

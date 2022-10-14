@@ -12,7 +12,6 @@ public class SalesRep {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
 
     @OneToMany(mappedBy = "id")
@@ -57,11 +56,9 @@ public class SalesRep {
         System.out.println("\nLEAD LIST\n===================");
 
         for (SalesRep salesRep : salesRepRepository.findAll()){
-//            System.out.println("Lead { Id: " + salesRep.getId()
-//                    + " | Name: " + salesRep.getName()
-//                    + " | Phone: " + salesRep.getPhoneNumber()
-//                    + " | Email: " + salesRep.getEmailAddress()
-//                    + " | Company Name: " + leads.getCompanyName() + " }");
+            System.out.println("SalesRep. { Id: " + salesRep.getId()
+                    + " | Name: " + salesRep.getName() +
+                    " }");
 
             System.out.println("====================");
         }

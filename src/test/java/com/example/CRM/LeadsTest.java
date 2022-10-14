@@ -17,7 +17,7 @@ public class LeadsTest {
     @Autowired
     LeadsRepository leadsRepository;
 
-//    List<Leads> leadsList;
+
 
     @BeforeEach
     void setUp() {

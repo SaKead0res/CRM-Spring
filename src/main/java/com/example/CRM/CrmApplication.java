@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -60,7 +58,14 @@ public class CrmApplication implements CommandLineRunner{
 				new Opportunity(Product.FLATBED, 660, Status.CLOSED_WON, accountRepository.findById(3l).get())
 		));
 
-//		navigate();
+		salesRepRepository.saveAll(List.of(
+				new SalesRep("Max"),
+				new SalesRep("Claud"),
+				new SalesRep("Solid"),
+				new SalesRep("Richi")
+				));
+
+		navigate();//SE TIENE QUE COMENTAR PARA QUE FUNCIONEN LOS TEST. GRACIAS.
 
 	}
 
@@ -81,9 +86,8 @@ public class CrmApplication implements CommandLineRunner{
 
 		Commands command = null;
 		try {
-			command = Commands.valueOf( input("Please, enter a command: ") );//esta funcion intenta dar a la variable command el valor de una String(input())
-//                                                  pero como es de clase Enum solo cogera el valor en caso de que exista en la
-//                                                  clase Enum Commands.
+			command = Commands.valueOf( input("Please, enter a command: ") );
+
 		} catch ( IllegalArgumentException e ) {
 			System.err.println( "This command doesn't exists. Try again or type <help>." );
 			TimeUnit.MILLISECONDS.sleep(1000);
@@ -138,6 +142,9 @@ public class CrmApplication implements CommandLineRunner{
 			case LOOKUPOPPORTUNITY:
 				Opportunity.lookupOpportunity(opportunityRepository);
 				break;
+			case SHOWSALESREP:
+				SalesRep.showSalesReps(salesRepRepository);
+				break;
 			case CONVERT:
 				try {
 					contact = Contact.addContact(Leads.convertLead(leadsRepository));
@@ -157,6 +164,7 @@ public class CrmApplication implements CommandLineRunner{
 					System.err.println(e.getMessage());
 					navigate();
 				}
+				opportunity.setDecisionMaker(contact);
 				try {
 
 					opportunity = Opportunity.addOpportunity(
@@ -164,7 +172,7 @@ public class CrmApplication implements CommandLineRunner{
 							Integer.parseInt(input("- Introduce the Interested Quantity: ")),
 							Status.OPEN);
 
-					opportunity.setDecisionMaker(contact);
+
 
 					System.out.println("\nThe new " + (char)27 + "[33m" + "OPPORTUNITY" + (char)27 + "[0m" + " is created correctly.");
 
@@ -172,7 +180,6 @@ public class CrmApplication implements CommandLineRunner{
 							"Opportunity {ID: " + opportunity.getId() +
 									" | Product: " + opportunity.getProduct() +
 									" | Interested Quantity: " + opportunity.getQuantity() +
-									" | Decision Maker: " + opportunity.getDecisionMaker().getName() +
 									" | Status: " + opportunity.getStatus() +
 									" | Related Account: " + opportunity.getAccount() + " }\n"
 					);
