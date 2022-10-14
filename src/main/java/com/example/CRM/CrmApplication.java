@@ -164,12 +164,15 @@ public class CrmApplication implements CommandLineRunner{
 							Integer.parseInt(input("- Introduce the Interested Quantity: ")),
 							Status.OPEN);
 
+					opportunity.setDecisionMaker(contact);
+
 					System.out.println("\nThe new " + (char)27 + "[33m" + "OPPORTUNITY" + (char)27 + "[0m" + " is created correctly.");
 
 					System.out.println(
 							"Opportunity {ID: " + opportunity.getId() +
 									" | Product: " + opportunity.getProduct() +
 									" | Interested Quantity: " + opportunity.getQuantity() +
+									" | Decision Maker: " + opportunity.getDecisionMaker().getName() +
 									" | Status: " + opportunity.getStatus() +
 									" | Related Account: " + opportunity.getAccount() + " }\n"
 					);
@@ -193,7 +196,7 @@ public class CrmApplication implements CommandLineRunner{
 					System.out.println("\nThe new " + (char)27 + "[33m" + "ACCOUNT" + (char)27 + "[0m" + " is created correctly.");
 
 					System.out.println(
-							"Contact {ID: " + account.getId() +
+							"Account {ID: " + account.getId() +
 									" | Industries: " + account.getIndustry() +
 									" | Employee Count: " + account.getEmployeeCount() +
 									" | City: " + account.getCity() +

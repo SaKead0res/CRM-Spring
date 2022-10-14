@@ -24,7 +24,7 @@ public class Opportunity {
     //    @Embedded
     @OneToOne
     @JoinColumn(name = "id")
-    static Contact decisionMaker;
+    private Contact decisionMaker;
 
 
     //    @Embedded
@@ -69,12 +69,12 @@ public class Opportunity {
         this.quantity = quantity;
     }
 
-    public static Contact getDecisionMaker() {
+    public Contact getDecisionMaker() {
         return decisionMaker;
     }
 
-    public static void setDecisionMaker(Contact decisionMaker) {
-        Opportunity.decisionMaker = decisionMaker;
+    public void setDecisionMaker(Contact decisionMaker) {
+        this.decisionMaker = decisionMaker;
     }
 
     public Status getStatus() {
@@ -97,13 +97,13 @@ public class Opportunity {
 
         Opportunity opportunity = new Opportunity();
 
-        if (product.toString().isEmpty()) throw new IllegalArgumentException("The Opportunity product can't be an empty field.");
+        if (product == null || product.toString().isBlank()) throw new IllegalArgumentException("The Opportunity product can't be an empty field.");
         opportunity.setProduct(product);
 
-        if (quantity > 0) throw new IllegalArgumentException("The Opportunity quantity can't be less than 0.");
+        if (quantity < 0) throw new IllegalArgumentException("The Opportunity quantity can't be less than 0.");
         opportunity.setQuantity(quantity);
 
-        if (status.toString().isEmpty()) throw new IllegalArgumentException("The Opportunity status can't be an empty field.");
+        if (status == null || status.toString().isEmpty()) throw new IllegalArgumentException("The Opportunity status can't be an empty field.");
         opportunity.setStatus(status);
 
 //
@@ -130,6 +130,7 @@ public class Opportunity {
             System.out.println("Opportunity { Id: " + opportunity.getId()
                     + " | Interested Product: " + opportunity.getProduct()
                     + " | Interested Quantity: " + opportunity.getQuantity()
+                    + " | Decision Maker: " + opportunity.getDecisionMaker().getName()
                     + " | Status: " + opportunity.getStatus()
                     + " | Related Account: " + opportunity.getAccount().getId() + " }");
 
@@ -159,6 +160,7 @@ public class Opportunity {
                 "  \n | Id: " + opportunityRepository.findById(id).get().getId() +
                 " |\n | Interested Product: " + opportunityRepository.findById(id).get().getProduct() +
                 " |\n | Interested Quantity: " + opportunityRepository.findById(id).get().getQuantity() +
+                " |\n | Decision Maker: " + opportunityRepository.findById(id).get().getDecisionMaker().getName() +
                 " |\n | Status: " + opportunityRepository.findById(id).get().getStatus() +
                 " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount().getId() + " |\n");
     }
@@ -187,6 +189,7 @@ public class Opportunity {
                 "  \n | Id: " + opportunityRepository.findById(id).get().getId() +
                 " |\n | Interested Product: " + opportunityRepository.findById(id).get().getProduct() +
                 " |\n | Interested Quantity: " + opportunityRepository.findById(id).get().getQuantity() +
+                " |\n | Decision Maker: " + opportunityRepository.findById(id).get().getDecisionMaker().getName() +
                 " |\n | Status: " + opportunityRepository.findById(id).get().getStatus() +
                 " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount().getId() + " |\n");
     }
@@ -215,6 +218,7 @@ public class Opportunity {
                 "  \n | Id: " + opportunityRepository.findById(id).get().getId() +
                 " |\n | Interested Product: " + opportunityRepository.findById(id).get().getProduct() +
                 " |\n | Interested Quantity: " + opportunityRepository.findById(id).get().getQuantity() +
+                " |\n | Decision Maker: " + opportunityRepository.findById(id).get().getDecisionMaker().getName() +
                 " |\n | Status: " + opportunityRepository.findById(id).get().getStatus() +
                 " |\n | Related Account: " + opportunityRepository.findById(id).get().getAccount().getId() + " |\n");
     }
